@@ -1,0 +1,59 @@
+<resources>
+    <string name="app_name">ЭЛЕКТРОСЕРВИС</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- Login -->
+    <string name="login_hint">Введите логин</string>
+    <string name="password_hint">Введите пароль</string>
+    <string name="remember_me">Запомнить меня</string>
+    <string name="btn_login">Войти</string>
+    <string name="label_login">Логин</string>
+    <string name="label_password">Пароль</string>
+
+    <!-- Task list -->
+    <string name="my_tasks">Мои задачи</string>
+    <string name="btn_accept">Принять</string>
+    <string name="btn_details">Подробнее…</string>
+
+    <!-- Drawer -->
+    <string name="my_acts">Мои акты</string>
+    <string name="references">Справочники</string>
+    <string name="knowledge_base">База знаний</string>
+    <string name="settings">Настройки</string>
+    <string name="logout">Выход</string>
+    <string name="nav_header_name">Елизавета Р.</string>
+    <string name="nav_header_role">Электрик</string>
+
+    <!-- Order detail -->
+    <string name="btn_accept_work">Принять в работу</string>
+    <string name="btn_back">← Назад</string>
+    <string name="label_address">Адрес: </string>
+    <string name="label_task_type">Тип задачи: </string>
+    <string name="label_status">Статус: </string>
+    <string name="label_deadline">Срок: выполнить до </string>
+    <string name="label_notes">Примечания: </string>
+    <string name="status_pending_str">Ждет принятия</string>
+    <string name="status_in_progress_str">В работе</string>
+    <string name="status_done_str">Выполнено</string>
+
+    <!-- New act -->
+    <string name="new_act_title">Новый акт осмотра</string>
+    <string name="btn_save">Сохранить</string>
+    <string name="label_inspection_type">Тип осмотра:</string>
+    <string name="label_consumer">Потребитель:</string>
+    <string name="label_date">Дата:</string>
+    <string name="label_meters_btn">Счётчики</string>
+    <string name="label_remarks">Примечания</string>
+    <string name="type_scheduled">Плановый</string>
+    <string name="type_unscheduled">Внеплановый</string>
+
+    <!-- Act replacement -->
+    <string name="act_replacement_title">Акт замены счетчика</string>
+    <string name="label_account">Лицевой счет</string>
+    <string name="label_install_date">Дата установки</string>
+    <string name="label_old_meter">Старый счетчик</string>
+    <string name="label_new_meter">Новый счетчик</string>
+    <string name="label_brand">Марка</string>
+    <string name="label_number">Номер</string>
+    <string name="label_readings">Показания</string>
+</resources>

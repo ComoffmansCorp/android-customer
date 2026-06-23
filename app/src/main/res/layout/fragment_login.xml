@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_screen">
+
+    <!-- ── Gradient header ── -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="280dp"
+        android:background="@drawable/bg_login_gradient" />
+
+    <!-- ── Branding on gradient ── -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="240dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:paddingBottom="16dp">
+
+        <!-- App icon circle -->
+        <FrameLayout
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginBottom="14dp">
+
+            <View
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@drawable/bg_avatar_ring_white"
+                android:alpha="0.25" />
+
+            <View
+                android:layout_width="68dp"
+                android:layout_height="68dp"
+                android:layout_gravity="center"
+                android:background="@drawable/bg_avatar_ring_white"
+                android:alpha="0.15" />
+
+            <ImageView
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_person"
+                android:tint="#FFFFFF" />
+
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ЭЛЕКТРОСЕРВИС"
+            android:textSize="22sp"
+            android:textColor="#FFFFFF"
+            android:fontFamily="sans-serif-medium"
+            android:letterSpacing="0.08" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Управление заданиями"
+            android:textSize="13sp"
+            android:textColor="#FFFFFF"
+            android:alpha="0.7"
+            android:layout_marginTop="4dp" />
+
+    </LinearLayout>
+
+    <!-- ── White form panel (slides up over gradient) ── -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="220dp"
+        android:fillViewport="true"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_white_round_top"
+            android:paddingHorizontal="28dp"
+            android:paddingTop="36dp"
+            android:paddingBottom="48dp"
+            android:minHeight="500dp">
+
+            <!-- Heading -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="С возвращением!"
+                android:textSize="24sp"
+                android:textColor="@color/text_primary"
+                android:fontFamily="sans-serif-medium" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Войдите в свой аккаунт"
+                android:textSize="14sp"
+                android:textColor="@color/text_hint"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="28dp" />
+
+            <!-- Tenant code field -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Код компании"
+                android:textSize="12sp"
+                android:textColor="@color/text_secondary"
+                android:fontFamily="sans-serif-medium"
+                android:letterSpacing="0.06"
+                android:layout_marginBottom="8dp" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:background="@drawable/bg_input"
+                android:layout_marginBottom="20dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_vertical|start"
+                    android:layout_marginStart="16dp"
+                    android:src="@drawable/ic_settings_outline"
+                    android:tint="@color/text_hint" />
+
+                <EditText
+                    android:id="@+id/et_tenant_code"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:hint="Например: company1"
+                    android:textColorHint="@color/text_hint"
+                    android:textColor="@color/text_primary"
+                    android:textSize="15sp"
+                    android:paddingStart="48dp"
+                    android:paddingEnd="16dp"
+                    android:inputType="text"
+                    android:singleLine="true" />
+
+            </FrameLayout>
+
+            <!-- Login field -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Логин"
+                android:textSize="12sp"
+                android:textColor="@color/text_secondary"
+                android:fontFamily="sans-serif-medium"
+                android:letterSpacing="0.06"
+                android:layout_marginBottom="8dp" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:background="@drawable/bg_input"
+                android:layout_marginBottom="20dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_vertical|start"
+                    android:layout_marginStart="16dp"
+                    android:src="@drawable/ic_user_outline" />
+
+                <EditText
+                    android:id="@+id/et_login"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:hint="Введите логин"
+                    android:textColorHint="@color/text_hint"
+                    android:textColor="@color/text_primary"
+                    android:textSize="15sp"
+                    android:paddingStart="48dp"
+                    android:paddingEnd="16dp"
+                    android:inputType="text"
+                    android:singleLine="true" />
+
+            </FrameLayout>
+
+            <!-- Password field -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Пароль"
+                android:textSize="12sp"
+                android:textColor="@color/text_secondary"
+                android:fontFamily="sans-serif-medium"
+                android:letterSpacing="0.06"
+                android:layout_marginBottom="8dp" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:background="@drawable/bg_input"
+                android:layout_marginBottom="18dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_vertical|start"
+                    android:layout_marginStart="16dp"
+                    android:src="@drawable/ic_lock" />
+
+                <EditText
+                    android:id="@+id/et_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:hint="Введите пароль"
+                    android:textColorHint="@color/text_hint"
+                    android:textColor="@color/text_primary"
+                    android:textSize="15sp"
+                    android:paddingStart="48dp"
+                    android:paddingEnd="52dp"
+                    android:inputType="textPassword"
+                    android:singleLine="true" />
+
+                <ImageView
+                    android:id="@+id/iv_toggle_password"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_vertical|end"
+                    android:layout_marginEnd="16dp"
+                    android:src="@drawable/ic_eye_off"
+                    android:clickable="true"
+                    android:focusable="true" />
+
+            </FrameLayout>
+
+            <!-- Remember me -->
+            <CheckBox
+                android:id="@+id/cb_remember"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Запомнить меня"
+                android:textColor="@color/text_secondary"
+                android:textSize="14sp"
+                android:checked="true"
+                android:buttonTint="@color/brand"
+                android:layout_marginBottom="36dp" />
+
+            <!-- Login button -->
+            <TextView
+                android:id="@+id/btn_login"
+                android:layout_width="match_parent"
+                android:layout_height="58dp"
+                android:background="@drawable/bg_btn_primary"
+                android:text="ВОЙТИ"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp"
+                android:fontFamily="sans-serif-medium"
+                android:letterSpacing="0.12"
+                android:gravity="center"
+                android:clickable="true"
+                android:focusable="true"
+                android:elevation="6dp" />
+
+            <!-- Demo mode -->
+            <TextView
+                android:id="@+id/btn_demo"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="12dp"
+                android:text="⚡  Демо вход"
+                android:textColor="@color/brand"
+                android:textSize="14sp"
+                android:gravity="center"
+                android:background="@drawable/bg_btn_secondary"
+                android:clickable="true"
+                android:focusable="true" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</FrameLayout>

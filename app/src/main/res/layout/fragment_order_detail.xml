@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_screen">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="140dp">
+
+            <!-- Task type pill -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:background="@drawable/bg_pill_type"
+                android:elevation="2dp">
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:src="@drawable/ic_settings_outline"
+                    android:layout_marginRight="8dp" />
+
+                <TextView
+                    android:id="@+id/tv_task_type_pill"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textColor="@color/text_primary"
+                    android:layout_marginRight="8dp" />
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:src="@drawable/ic_settings_outline" />
+
+            </LinearLayout>
+
+            <!-- Info card -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="6dp"
+                app:cardBackgroundColor="#FFFFFF">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp">
+
+                    <!-- Address row -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:paddingTop="14dp"
+                        android:paddingBottom="14dp">
+
+                        <FrameLayout
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/bg_status_progress"
+                            android:layout_marginRight="14dp">
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_location"
+                                android:tint="@color/status_progress_fg" />
+                        </FrameLayout>
+
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                            android:layout_weight="1" android:orientation="vertical">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                android:text="АДРЕС" android:textSize="10sp" android:textColor="@color/text_hint" />
+                            <TextView android:id="@+id/tv_address" android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" android:textSize="14sp"
+                                android:textColor="@color/text_primary" android:layout_marginTop="2dp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <View android:layout_width="match_parent" android:layout_height="1dp"
+                        android:background="@color/divider" android:layout_marginLeft="20dp" android:layout_marginRight="20dp" />
+
+                    <!-- Type row -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:paddingTop="14dp"
+                        android:paddingBottom="14dp">
+
+                        <FrameLayout
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/bg_status_pending"
+                            android:layout_marginRight="14dp">
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_clipboard"
+                                android:tint="@color/status_pending_fg" />
+                        </FrameLayout>
+
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                            android:layout_weight="1" android:orientation="vertical">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                android:text="ТИП ЗАДАЧИ" android:textSize="10sp" android:textColor="@color/text_hint" />
+                            <TextView android:id="@+id/tv_type" android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" android:textSize="14sp"
+                                android:textColor="@color/text_primary" android:layout_marginTop="2dp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <View android:layout_width="match_parent" android:layout_height="1dp"
+                        android:background="@color/divider" android:layout_marginLeft="20dp" android:layout_marginRight="20dp" />
+
+                    <!-- Status row -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:paddingTop="14dp"
+                        android:paddingBottom="14dp">
+
+                        <FrameLayout
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/bg_icon_circle"
+                            android:layout_marginRight="14dp">
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_target"
+                                android:tint="@color/brand" />
+                        </FrameLayout>
+
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                            android:layout_weight="1" android:orientation="vertical">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                android:text="СТАТУС" android:textSize="10sp" android:textColor="@color/text_hint" />
+                            <TextView
+                                android:id="@+id/tv_status"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp"
+                                android:paddingTop="4dp"
+                                android:paddingBottom="4dp"
+                                android:textSize="13sp"
+                                android:background="@drawable/bg_status_pending" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <View android:layout_width="match_parent" android:layout_height="1dp"
+                        android:background="@color/divider" android:layout_marginLeft="20dp" android:layout_marginRight="20dp" />
+
+                    <!-- Deadline row -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:paddingTop="14dp"
+                        android:paddingBottom="14dp">
+
+                        <FrameLayout
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/bg_status_done"
+                            android:layout_marginRight="14dp">
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_calendar"
+                                android:tint="@color/status_done_fg" />
+                        </FrameLayout>
+
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                            android:layout_weight="1" android:orientation="vertical">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                android:text="СРОК" android:textSize="10sp" android:textColor="@color/text_hint" />
+                            <TextView android:id="@+id/tv_deadline" android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" android:textSize="14sp"
+                                android:textColor="@color/text_primary" android:layout_marginTop="2dp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <View android:layout_width="match_parent" android:layout_height="1dp"
+                        android:background="@color/divider" android:layout_marginLeft="20dp" android:layout_marginRight="20dp" />
+
+                    <!-- Notes row -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:paddingTop="14dp"
+                        android:paddingBottom="14dp">
+
+                        <FrameLayout
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/bg_icon_circle"
+                            android:layout_marginRight="14dp">
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_paperclip"
+                                android:tint="@color/brand" />
+                        </FrameLayout>
+
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                            android:layout_weight="1" android:orientation="vertical">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                android:text="ПРИМЕЧАНИЯ" android:textSize="10sp" android:textColor="@color/text_hint" />
+                            <TextView android:id="@+id/tv_notes" android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" android:textSize="14sp"
+                                android:textColor="@color/text_primary" android:layout_marginTop="2dp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Accept button -->
+            <TextView
+                android:id="@+id/btn_accept_work"
+                android:layout_width="match_parent"
+                android:layout_height="58dp"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/bg_btn_primary"
+                android:text="Принять в работу"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:clickable="true"
+                android:focusable="true"
+                android:elevation="4dp" />
+
+            <!-- Create act button -->
+            <TextView
+                android:id="@+id/btn_create_act"
+                android:layout_width="match_parent"
+                android:layout_height="58dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/bg_btn_secondary"
+                android:text="Создать акт"
+                android:textColor="@color/brand"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:clickable="true"
+                android:focusable="true"
+                android:visibility="gone" />
+
+            <!-- Complete without act -->
+            <TextView
+                android:id="@+id/btn_complete_task"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="8dp"
+                android:text="Завершить задачу"
+                android:textColor="@color/text_secondary"
+                android:textSize="14sp"
+                android:gravity="center"
+                android:clickable="true"
+                android:focusable="true"
+                android:visibility="gone" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Back button -->
+    <LinearLayout
+        android:id="@+id/btn_back"
+        android:layout_width="wrap_content"
+        android:layout_height="46dp"
+        android:layout_gravity="bottom|start"
+        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="28dp"
+        android:background="@drawable/bg_back_btn"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:elevation="4dp">
+
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:src="@drawable/ic_arrow_left"
+            android:layout_marginRight="6dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Назад"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+</FrameLayout>

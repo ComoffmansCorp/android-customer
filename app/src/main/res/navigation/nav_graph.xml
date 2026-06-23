@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.myapplication.LoginFragment"
+        android:label="ЭЛЕКТРОСЕРВИС"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_login_to_taskList"
+            app:destination="@id/taskListFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/taskListFragment"
+        android:name="com.example.myapplication.TaskListFragment"
+        android:label="Мои задачи"
+        tools:layout="@layout/fragment_task_list">
+        <action
+            android:id="@+id/action_taskList_to_orderDetail"
+            app:destination="@id/orderDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/orderDetailFragment"
+        android:name="com.example.myapplication.OrderDetailFragment"
+        android:label="Заказ"
+        tools:layout="@layout/fragment_order_detail">
+        <argument
+            android:name="taskId"
+            app:argType="long"
+            android:defaultValue="0L" />
+        <action
+            android:id="@+id/action_orderDetail_to_newAct"
+            app:destination="@id/newActFragment" />
+        <action
+            android:id="@+id/action_orderDetail_to_actReplacement"
+            app:destination="@id/actReplacementFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/newActFragment"
+        android:name="com.example.myapplication.NewActFragment"
+        android:label="Новый акт осмотра"
+        tools:layout="@layout/fragment_new_act">
+        <argument android:name="taskId"    app:argType="long" android:defaultValue="0L" />
+        <argument android:name="addressId" app:argType="long" android:defaultValue="0L" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/actReplacementFragment"
+        android:name="com.example.myapplication.ActReplacementFragment"
+        android:label="Акт замены"
+        tools:layout="@layout/fragment_act_replacement">
+        <argument android:name="taskId"    app:argType="long" android:defaultValue="0L" />
+        <argument android:name="addressId" app:argType="long" android:defaultValue="0L" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/dictionaryFragment"
+        android:name="com.example.myapplication.DictionaryFragment"
+        android:label="Справочник"
+        tools:layout="@layout/fragment_dictionary" />
+
+</navigation>
