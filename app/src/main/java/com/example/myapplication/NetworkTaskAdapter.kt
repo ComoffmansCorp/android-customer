@@ -23,8 +23,8 @@ class NetworkTaskAdapter(
             }
             b.tvTaskTitle.text = "$typeLabel — до ${task.dueDate ?: "—"}"
             b.tvTaskSubtitle.text = buildString {
-                append(task.address)
-                if (!task.consumerName.isNullOrBlank()) append("\nЗаказчик: ${task.consumerName}")
+                append(task.addressLabel ?: "Адрес не указан")
+                if (!task.assigneeName.isNullOrBlank()) append("\nИнспектор: ${task.assigneeName}")
             }
 
             val (strip, bgColor, iconTint, statusText, statusBg) = when (task.status) {

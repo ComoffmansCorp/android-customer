@@ -17,6 +17,7 @@ import com.example.myapplication.databinding.FragmentDictionaryBinding
 import com.example.myapplication.databinding.ItemAddressCardBinding
 import com.example.myapplication.network.AddressResponse
 import com.example.myapplication.network.ApiClient
+import com.example.myapplication.network.toUserMessage
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -64,25 +65,25 @@ class DictionaryFragment : Fragment() {
 
     private fun loadAddresses(query: String) {
         lifecycleScope.launch {
-            runCatching { ApiClient.api.getAddresses(query) }
-                .onSuccess { list ->
+            runCatching { ApiClient.api.getAddresses(search = query, pageSize = 100) }
+                .onSuccess { page ->
                     allAddresses.clear()
-                    allAddresses.addAll(list)
-                    adapter.replace(list)
-                    updateCount(list.size)
+                    allAddresses.addAll(page.items)
+                    adapter.replace(page.items)
+                    updateCount(page.items.size)
                 }
                 .onFailure {
-                    Toast.makeText(requireContext(), "Ошибка: ${it.message}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), it.toUserMessage(), Toast.LENGTH_SHORT).show()
                 }
         }
     }
 
     private fun searchAddresses(query: String) {
         lifecycleScope.launch {
-            runCatching { ApiClient.api.getAddresses(query) }
-                .onSuccess { list ->
-                    adapter.replace(list)
-                    updateCount(list.size)
+            runCatching { ApiClient.api.getAddresses(search = query, pageSize = 100) }
+                .onSuccess { page ->
+                    adapter.replace(page.items)
+                    updateCount(page.items.size)
                 }
         }
     }
@@ -113,7 +114,7 @@ class DictionaryFragment : Fragment() {
                     }}
                 )
                 b.tvAddressFull.text = parts.joinToString(", ")
-                b.tvConsumer.text = addr.consumer ?: "Потребитель не указан"
+                b.tvConsumer.text = addr.consumerName ?: "Потребитель не указан"
             }
         }
 

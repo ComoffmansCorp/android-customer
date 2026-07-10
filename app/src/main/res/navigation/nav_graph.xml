@@ -47,10 +47,9 @@
     <fragment
         android:id="@+id/newActFragment"
         android:name="com.example.myapplication.NewActFragment"
-        android:label="Новый акт осмотра"
+        android:label="Акт осмотра"
         tools:layout="@layout/fragment_new_act">
-        <argument android:name="taskId"    app:argType="long" android:defaultValue="0L" />
-        <argument android:name="addressId" app:argType="long" android:defaultValue="0L" />
+        <argument android:name="taskId" app:argType="long" android:defaultValue="0L" />
     </fragment>
 
     <fragment
@@ -58,8 +57,7 @@
         android:name="com.example.myapplication.ActReplacementFragment"
         android:label="Акт замены"
         tools:layout="@layout/fragment_act_replacement">
-        <argument android:name="taskId"    app:argType="long" android:defaultValue="0L" />
-        <argument android:name="addressId" app:argType="long" android:defaultValue="0L" />
+        <argument android:name="taskId" app:argType="long" android:defaultValue="0L" />
     </fragment>
 
     <fragment
@@ -67,5 +65,24 @@
         android:name="com.example.myapplication.DictionaryFragment"
         android:label="Справочник"
         tools:layout="@layout/fragment_dictionary" />
+
+    <fragment
+        android:id="@+id/myActsFragment"
+        android:name="com.example.myapplication.MyActsFragment"
+        android:label="Мои акты"
+        tools:layout="@layout/fragment_my_acts">
+        <action
+            android:id="@+id/action_myActs_to_newAct"
+            app:destination="@id/newActFragment" />
+        <action
+            android:id="@+id/action_myActs_to_actReplacement"
+            app:destination="@id/actReplacementFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.myapplication.SettingsFragment"
+        android:label="Настройки"
+        tools:layout="@layout/fragment_settings" />
 
 </navigation>

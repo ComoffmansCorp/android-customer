@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Тип прибора"
+            android:textSize="11sp"
+            android:textColor="@color/text_hint"
+            android:layout_marginBottom="6dp" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:background="@drawable/bg_input"
+            android:layout_marginBottom="14dp">
+            <AutoCompleteTextView
+                android:id="@+id/et_meter_type"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:paddingHorizontal="16dp"
+                android:textSize="14sp"
+                android:textColor="@color/text_primary"
+                android:inputType="none"
+                android:gravity="center_vertical" />
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Серийный номер"
+            android:textSize="11sp"
+            android:textColor="@color/text_hint"
+            android:layout_marginBottom="6dp" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:background="@drawable/bg_input"
+            android:layout_marginBottom="14dp">
+            <EditText
+                android:id="@+id/et_meter_serial"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:paddingHorizontal="16dp"
+                android:textSize="14sp"
+                android:singleLine="true" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Год выпуска"
+                    android:textSize="11sp"
+                    android:textColor="@color/text_hint"
+                    android:layout_marginBottom="6dp" />
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:background="@drawable/bg_input"
+                    android:layout_marginBottom="14dp">
+                    <EditText
+                        android:id="@+id/et_meter_year"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@null"
+                        android:paddingHorizontal="16dp"
+                        android:textSize="14sp"
+                        android:inputType="number"
+                        android:singleLine="true" />
+                </FrameLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Коэфф. трансф."
+                    android:textSize="11sp"
+                    android:textColor="@color/text_hint"
+                    android:layout_marginBottom="6dp" />
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:background="@drawable/bg_input"
+                    android:layout_marginBottom="14dp">
+                    <EditText
+                        android:id="@+id/et_meter_ratio"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@null"
+                        android:paddingHorizontal="16dp"
+                        android:textSize="14sp"
+                        android:inputType="number"
+                        android:singleLine="true" />
+                </FrameLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Дата поверки"
+            android:textSize="11sp"
+            android:textColor="@color/text_hint"
+            android:layout_marginBottom="6dp" />
+
+        <LinearLayout
+            android:id="@+id/ll_meter_date_picker"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:background="@drawable/bg_input"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="16dp"
+            android:orientation="horizontal"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_marginBottom="14dp">
+
+            <TextView
+                android:id="@+id/tv_meter_date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="дд.мм.гггг (необязательно)"
+                android:textColorHint="@color/text_hint"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:src="@drawable/ic_calendar"
+                android:tint="@color/brand" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Состояние пломбы"
+            android:textSize="11sp"
+            android:textColor="@color/text_hint"
+            android:layout_marginBottom="6dp" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:background="@drawable/bg_input">
+            <AutoCompleteTextView
+                android:id="@+id/et_meter_seal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:paddingHorizontal="16dp"
+                android:textSize="14sp"
+                android:textColor="@color/text_primary"
+                android:inputType="none"
+                android:gravity="center_vertical" />
+        </FrameLayout>
+
+    </LinearLayout>
+
+</ScrollView>

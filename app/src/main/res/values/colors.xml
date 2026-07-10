@@ -1,40 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Brand -->
-    <color name="brand">#C96A3F</color>
-    <color name="brand_mid">#E08258</color>
-    <color name="brand_light">#F5A67A</color>
-    <color name="brand_pale">#FFF0E8</color>
+    <!-- Brand — aged brass (seal-tag accent), matches the web admin's
+         "Опломбировано" system: cool steel housing + warm brass fitting. -->
+    <color name="brand">#9C6F2C</color>
+    <color name="brand_mid">#B8863A</color>
+    <color name="brand_light">#D1A768</color>
+    <color name="brand_pale">#F4E8D0</color>
 
     <!-- UI -->
-    <color name="bg_screen">#F7EDE6</color>
+    <color name="bg_screen">#F4F6F6</color>
     <color name="surface">#FFFFFF</color>
-    <color name="dark">#1A1209</color>
-    <color name="text_primary">#1A1209</color>
-    <color name="text_secondary">#6B5E56</color>
-    <color name="text_hint">#B0A49E</color>
-    <color name="divider">#F0E8E3</color>
-    <color name="input_bg">#F2EAE4</color>
+    <color name="dark">#14181C</color>
+    <color name="text_primary">#14181C</color>
+    <color name="text_secondary">#4D5B66</color>
+    <color name="text_hint">#93A1AB</color>
+    <color name="divider">#DDE3E6</color>
+    <color name="input_bg">#EEF1F2</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#FF000000</color>
 
-    <!-- Status -->
-    <color name="status_pending_bg">#FEF3C7</color>
-    <color name="status_pending_fg">#92400E</color>
-    <color name="status_progress_bg">#DBEAFE</color>
-    <color name="status_progress_fg">#1E3A8A</color>
-    <color name="status_done_bg">#D1FAE5</color>
-    <color name="status_done_fg">#064E3B</color>
+    <!-- Status: same metallurgy metaphor as the dispatcher admin — awaiting
+         (raw steel), in progress (working copper/blue), done (verdigris). -->
+    <color name="status_pending_bg">#E4E8EA</color>
+    <color name="status_pending_fg">#47555F</color>
+    <color name="status_progress_bg">#DCE8F2</color>
+    <color name="status_progress_fg">#2C5074</color>
+    <color name="status_done_bg">#DCEAE3</color>
+    <color name="status_done_fg">#2E5F4C</color>
 
     <!-- Strip colors for cards -->
-    <color name="strip_pending">#F59E0B</color>
-    <color name="strip_progress">#3B82F6</color>
-    <color name="strip_done">#10B981</color>
+    <color name="strip_pending">#5C6B74</color>
+    <color name="strip_progress">#35608F</color>
+    <color name="strip_done">#3F7A63</color>
 
     <!-- Legacy aliases (referenced by old shape drawables) -->
-    <color name="peach_light">#F5CEB0</color>
-    <color name="peach_circle">#F2D5C4</color>
-    <color name="card_stroke">#E8E8E8</color>
-    <color name="status_pending">#FEF3C7</color>
-    <color name="peach">#E8A87C</color>
+    <color name="peach_light">#E4D2A8</color>
+    <color name="peach_circle">#ECDFC0</color>
+    <color name="card_stroke">#DDE3E6</color>
+    <color name="status_pending">#E4E8EA</color>
+    <color name="peach">#C99A56</color>
 </resources>

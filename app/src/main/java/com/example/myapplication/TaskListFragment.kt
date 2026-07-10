@@ -12,7 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.databinding.FragmentTaskListBinding
 import com.example.myapplication.network.ApiClient
-import com.example.myapplication.network.TaskStatusUpdateRequest
+import com.example.myapplication.network.toUserMessage
 import kotlinx.coroutines.launch
 
 class TaskListFragment : Fragment() {
@@ -57,13 +57,13 @@ class TaskListFragment : Fragment() {
 
     private fun loadTasks() {
         lifecycleScope.launch {
-            runCatching { ApiClient.api.getTasks() }
-                .onSuccess { tasks ->
-                    adapter.replaceAll(tasks)
-                    updateCount(tasks.size)
+            runCatching { ApiClient.api.getTasks(pageSize = 100) }
+                .onSuccess { page ->
+                    adapter.replaceAll(page.items)
+                    updateCount(page.items.size)
                 }
                 .onFailure {
-                    Toast.makeText(requireContext(), "Ошибка загрузки: ${it.message}", Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(), "Ошибка загрузки: ${it.toUserMessage()}", Toast.LENGTH_LONG).show()
                 }
         }
     }
@@ -71,12 +71,12 @@ class TaskListFragment : Fragment() {
     private fun acceptTask(task: com.example.myapplication.network.TaskResponse) {
         lifecycleScope.launch {
             runCatching {
-                ApiClient.api.updateTaskStatus(task.id, TaskStatusUpdateRequest("IN_PROGRESS"))
+                ApiClient.api.startTask(task.id)
             }.onSuccess { updated ->
                 adapter.updateItem(updated)
-                Toast.makeText(requireContext(), "Задача принята в работу", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Наряд взят в работу", Toast.LENGTH_SHORT).show()
             }.onFailure {
-                Toast.makeText(requireContext(), "Ошибка: ${it.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), it.toUserMessage(), Toast.LENGTH_SHORT).show()
             }
         }
     }

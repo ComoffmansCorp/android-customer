@@ -18,6 +18,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var toggle: ActionBarDrawerToggle
     private var notificationMenuItem: MenuItem? = null
 
+    private val roleLabels = mapOf(
+        "SUPER_ADMIN" to "Супер-администратор",
+        "TENANT_ADMIN" to "Администратор",
+        "DISPATCHER" to "Диспетчер",
+        "ELECTRICIAN" to "Инспектор"
+    )
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         b = ActivityMainBinding.inflate(layoutInflater)
@@ -51,9 +58,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     toggle.isDrawerIndicatorEnabled = true
                     toggle.syncState()
                     invalidateOptionsMenu()
+                    updateNavHeader()
                 }
             }
         }
+    }
+
+    private fun updateNavHeader() {
+        val header = b.navView.getHeaderView(0) ?: return
+        header.findViewById<android.widget.TextView>(R.id.nav_name)?.text =
+            AuthManager.fullName ?: getString(R.string.app_name)
+        header.findViewById<android.widget.TextView>(R.id.nav_role)?.text =
+            AuthManager.role?.let { roleLabels[it] ?: it } ?: ""
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -80,8 +96,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 if (navController.currentDestination?.id != R.id.dictionaryFragment)
                     navController.navigate(R.id.dictionaryFragment)
             }
-            R.id.nav_acts     -> { /* TODO: мои акты */ }
-            R.id.nav_settings -> { /* TODO: настройки */ }
+            R.id.nav_acts -> {
+                if (navController.currentDestination?.id != R.id.myActsFragment)
+                    navController.navigate(R.id.myActsFragment)
+            }
+            R.id.nav_settings -> {
+                if (navController.currentDestination?.id != R.id.settingsFragment)
+                    navController.navigate(R.id.settingsFragment)
+            }
             R.id.nav_logout   -> {
                 AuthManager.clear()
                 navController.navigate(R.id.loginFragment)

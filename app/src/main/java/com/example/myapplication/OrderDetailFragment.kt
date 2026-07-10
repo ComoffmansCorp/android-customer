@@ -13,8 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.myapplication.databinding.FragmentOrderDetailBinding
 import com.example.myapplication.network.ApiClient
 import com.example.myapplication.network.TaskResponse
-import com.example.myapplication.network.TaskStatusUpdateRequest
-import kotlinx.coroutines.async
+import com.example.myapplication.network.toUserMessage
 import kotlinx.coroutines.launch
 
 class OrderDetailFragment : Fragment() {
@@ -22,7 +21,7 @@ class OrderDetailFragment : Fragment() {
     private var _b: FragmentOrderDetailBinding? = null
     private val b get() = _b!!
     private var task: TaskResponse? = null
-    private var addressId: Long = 0L
+    private var hasAct: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -40,42 +39,47 @@ class OrderDetailFragment : Fragment() {
 
         b.btnBack.setOnClickListener { findNavController().popBackStack() }
 
-        loadTaskAndAddress(taskId)
+        loadTask(taskId)
     }
 
-    private fun loadTaskAndAddress(taskId: Long) {
+    override fun onResume() {
+        super.onResume()
+        // Coming back from the act screen (act just created, or meters/photos
+        // added) — refresh so the act-exists gate on "Завершить наряд" updates.
+        task?.let { refresh(it.id) }
+    }
+
+    private fun loadTask(taskId: Long) {
         lifecycleScope.launch {
-            // Параллельно загружаем задачи и адреса
-            val tasksDeferred = async { runCatching { ApiClient.api.getTasks() } }
-            val addressesDeferred = async { runCatching { ApiClient.api.getAddresses() } }
-
-            val tasksResult = tasksDeferred.await()
-            val addressesResult = addressesDeferred.await()
-
-            tasksResult.onSuccess { tasks ->
-                val found = tasks.find { it.id == taskId }
-                if (found == null) {
-                    Toast.makeText(requireContext(), "Задача не найдена", Toast.LENGTH_SHORT).show()
-                    return@onSuccess
+            runCatching { ApiClient.api.getTask(taskId) }
+                .onSuccess { t ->
+                    task = t
+                    bindTask(t)
+                    checkActExists(t)
                 }
-                task = found
-                bindTask(found)
-
-                // Ищем совпадение по адресу
-                addressesResult.onSuccess { addrs ->
-                    val match = addrs.firstOrNull { addr ->
-                        val full = listOfNotNull(addr.street, addr.house, addr.apartment)
-                            .joinToString(", ")
-                        found.address.contains(addr.street ?: "", ignoreCase = true) ||
-                        full.contains(addr.house ?: "", ignoreCase = true)
-                    }
-                    addressId = match?.id ?: addrs.firstOrNull()?.id ?: 0L
+                .onFailure {
+                    Toast.makeText(requireContext(), it.toUserMessage(), Toast.LENGTH_SHORT).show()
                 }
-            }
-            tasksResult.onFailure {
-                Toast.makeText(requireContext(), "Ошибка: ${it.message}", Toast.LENGTH_SHORT).show()
-            }
         }
+    }
+
+    private fun refresh(taskId: Long) {
+        lifecycleScope.launch {
+            runCatching { ApiClient.api.getTask(taskId) }
+                .onSuccess { t ->
+                    task = t
+                    bindTask(t)
+                    checkActExists(t)
+                }
+        }
+    }
+
+    private suspend fun checkActExists(t: TaskResponse) {
+        hasAct = runCatching {
+            if (t.type == "REPLACEMENT") ApiClient.api.getReplacementActByTask(t.id)
+            else ApiClient.api.getInspectionActByTask(t.id)
+        }.isSuccess
+        updateButtons(t)
     }
 
     private fun bindTask(t: TaskResponse) {
@@ -84,13 +88,13 @@ class OrderDetailFragment : Fragment() {
             "REPLACEMENT" -> "Замена оборудования"
             else -> t.type
         }
-        (activity as? MainActivity)?.setToolbarTitle("Заказ — до ${t.dueDate ?: ""}")
+        (activity as? MainActivity)?.setToolbarTitle("Наряд — до ${t.dueDate ?: ""}")
 
         b.tvTaskTypePill.text = typeLabel
-        b.tvAddress.text = t.address
+        b.tvAddress.text = t.addressLabel ?: "—"
         b.tvType.text = typeLabel
         b.tvDeadline.text = t.dueDate ?: "—"
-        b.tvNotes.text = if (!t.consumerName.isNullOrBlank()) t.consumerName else "—"
+        b.tvNotes.text = t.cancelReason?.takeIf { it.isNotBlank() } ?: "—"
 
         applyStatus(t.status)
         updateButtons(t)
@@ -103,10 +107,10 @@ class OrderDetailFragment : Fragment() {
                 b.btnAcceptWork.isClickable = true
                 b.btnAcceptWork.alpha = 1f
                 b.btnAcceptWork.text = "Принять в работу"
-                b.btnAcceptWork.background = requireContext()
-                    .getDrawable(R.drawable.bg_btn_primary)
-                b.btnCreateAct.visibility = View.GONE
+                b.btnAcceptWork.background = requireContext().getDrawable(R.drawable.bg_btn_primary)
                 b.btnAcceptWork.setOnClickListener { acceptTask(t) }
+                b.btnCreateAct.visibility = View.GONE
+                b.btnCompleteTask.visibility = View.GONE
             }
             "IN_PROGRESS" -> {
                 b.btnAcceptWork.visibility = View.VISIBLE
@@ -115,21 +119,35 @@ class OrderDetailFragment : Fragment() {
                 b.btnAcceptWork.text = "✓  Принято в работу"
 
                 b.btnCreateAct.visibility = View.VISIBLE
-                b.btnCreateAct.text = when (t.type) {
-                    "REPLACEMENT" -> "Создать акт замены"
-                    else          -> "Создать акт осмотра"
+                b.btnCreateAct.text = when {
+                    hasAct && t.type == "REPLACEMENT" -> "Открыть акт замены"
+                    hasAct                             -> "Открыть акт осмотра"
+                    t.type == "REPLACEMENT"            -> "Создать акт замены"
+                    else                                -> "Создать акт осмотра"
                 }
                 b.btnCreateAct.setOnClickListener { openActForm(t) }
 
                 b.btnCompleteTask.visibility = View.VISIBLE
-                b.btnCompleteTask.setOnClickListener { completeTask(t) }
+                if (hasAct) {
+                    b.btnCompleteTask.text = "Завершить наряд"
+                    b.btnCompleteTask.alpha = 1f
+                    b.btnCompleteTask.isClickable = true
+                    b.btnCompleteTask.setOnClickListener { completeTask(t) }
+                } else {
+                    b.btnCompleteTask.text = "Сначала заполните акт"
+                    b.btnCompleteTask.alpha = 0.5f
+                    b.btnCompleteTask.isClickable = false
+                    b.btnCompleteTask.setOnClickListener(null)
+                }
             }
             "COMPLETED" -> {
                 b.btnAcceptWork.visibility = View.VISIBLE
                 b.btnAcceptWork.isClickable = false
                 b.btnAcceptWork.alpha = 0.5f
                 b.btnAcceptWork.text = "✓  Выполнено"
-                b.btnCreateAct.visibility = View.GONE
+                b.btnCreateAct.visibility = View.VISIBLE
+                b.btnCreateAct.text = "Открыть акт"
+                b.btnCreateAct.setOnClickListener { openActForm(t) }
                 b.btnCompleteTask.visibility = View.GONE
             }
             else -> {
@@ -145,37 +163,37 @@ class OrderDetailFragment : Fragment() {
         b.btnAcceptWork.alpha = 0.6f
 
         lifecycleScope.launch {
-            runCatching {
-                ApiClient.api.updateTaskStatus(t.id, TaskStatusUpdateRequest("IN_PROGRESS"))
-            }.onSuccess { updated ->
-                task = updated
-                applyStatus(updated.status)
-                updateButtons(updated)
-                Toast.makeText(requireContext(), "Задача принята в работу!", Toast.LENGTH_SHORT).show()
-            }.onFailure {
-                b.btnAcceptWork.isClickable = true
-                b.btnAcceptWork.alpha = 1f
-                Toast.makeText(requireContext(), "Ошибка: ${it.message}", Toast.LENGTH_SHORT).show()
-            }
+            runCatching { ApiClient.api.startTask(t.id) }
+                .onSuccess { updated ->
+                    task = updated
+                    applyStatus(updated.status)
+                    updateButtons(updated)
+                    Toast.makeText(requireContext(), "Наряд взят в работу!", Toast.LENGTH_SHORT).show()
+                }
+                .onFailure {
+                    b.btnAcceptWork.isClickable = true
+                    b.btnAcceptWork.alpha = 1f
+                    Toast.makeText(requireContext(), it.toUserMessage(), Toast.LENGTH_SHORT).show()
+                }
         }
     }
 
     private fun completeTask(t: TaskResponse) {
         android.app.AlertDialog.Builder(requireContext())
-            .setTitle("Завершить задачу")
-            .setMessage("Завершить задачу без создания акта?")
+            .setTitle("Завершить наряд")
+            .setMessage("Акт заполнен. Завершить наряд?")
             .setPositiveButton("Завершить") { _, _ ->
                 lifecycleScope.launch {
-                    runCatching {
-                        ApiClient.api.updateTaskStatus(t.id, TaskStatusUpdateRequest("COMPLETED"))
-                    }.onSuccess { updated ->
-                        task = updated
-                        applyStatus(updated.status)
-                        updateButtons(updated)
-                        Toast.makeText(requireContext(), "Задача завершена", Toast.LENGTH_SHORT).show()
-                    }.onFailure {
-                        Toast.makeText(requireContext(), "Ошибка: ${it.message}", Toast.LENGTH_SHORT).show()
-                    }
+                    runCatching { ApiClient.api.completeTask(t.id) }
+                        .onSuccess { updated ->
+                            task = updated
+                            applyStatus(updated.status)
+                            updateButtons(updated)
+                            Toast.makeText(requireContext(), "Наряд завершён", Toast.LENGTH_SHORT).show()
+                        }
+                        .onFailure {
+                            Toast.makeText(requireContext(), it.toUserMessage(), Toast.LENGTH_LONG).show()
+                        }
                 }
             }
             .setNegativeButton("Отмена", null)
@@ -187,10 +205,7 @@ class OrderDetailFragment : Fragment() {
             "REPLACEMENT" -> R.id.action_orderDetail_to_actReplacement
             else          -> R.id.action_orderDetail_to_newAct
         }
-        findNavController().navigate(dest, bundleOf(
-            "taskId"    to t.id,
-            "addressId" to addressId
-        ))
+        findNavController().navigate(dest, bundleOf("taskId" to t.id))
     }
 
     private fun applyStatus(status: String) {

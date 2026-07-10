@@ -86,21 +86,9 @@
                             android:textColor="@color/text_primary" android:inputType="number" android:singleLine="true" />
                     </FrameLayout>
 
-                    <!-- Install date 1 -->
+                    <!-- Installation date (with calendar picker) -->
                     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                         android:text="Дата установки" android:textSize="11sp" android:textColor="@color/text_hint"
-                        android:fontFamily="sans-serif-medium" android:letterSpacing="0.06" android:layout_marginBottom="8dp" />
-                    <FrameLayout android:layout_width="match_parent" android:layout_height="52dp"
-                        android:background="@drawable/bg_input" android:layout_marginBottom="16dp">
-                        <EditText android:id="@+id/et_install_date" android:layout_width="match_parent"
-                            android:layout_height="match_parent" android:background="@null"
-                            android:paddingHorizontal="16dp" android:textSize="14sp"
-                            android:textColor="@color/text_primary" android:inputType="date" android:singleLine="true" />
-                    </FrameLayout>
-
-                    <!-- Install date 2 (with calendar picker) -->
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:text="Дата снятия" android:textSize="11sp" android:textColor="@color/text_hint"
                         android:fontFamily="sans-serif-medium" android:letterSpacing="0.06" android:layout_marginBottom="8dp" />
                     <LinearLayout
                         android:id="@+id/ll_date_picker2"
@@ -267,19 +255,126 @@
 
             </androidx.cardview.widget.CardView>
 
+            <!-- Photos card: shown once the act exists -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_photos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:visibility="gone"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="4dp"
+                app:cardBackgroundColor="#FFFFFF">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Фотофиксация"
+                        android:textSize="11sp"
+                        android:textColor="@color/text_hint"
+                        android:fontFamily="sans-serif-medium"
+                        android:letterSpacing="0.06"
+                        android:layout_marginBottom="10dp" />
+
+                    <HorizontalScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:scrollbars="none">
+
+                        <LinearLayout
+                            android:id="@+id/ll_photos_list"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal" />
+
+                    </HorizontalScrollView>
+
+                    <TextView
+                        android:id="@+id/btn_add_photo"
+                        android:layout_width="match_parent"
+                        android:layout_height="46dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/bg_btn_secondary"
+                        android:text="+ Добавить фото"
+                        android:textColor="@color/brand"
+                        android:textSize="14sp"
+                        android:fontFamily="sans-serif-medium"
+                        android:gravity="center"
+                        android:clickable="true"
+                        android:focusable="true" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- Finish task button: shown once the act exists -->
+            <TextView
+                android:id="@+id/btn_finish_task"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:layout_marginTop="14dp"
+                android:visibility="gone"
+                android:background="@drawable/bg_btn_primary"
+                android:text="Завершить наряд"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center"
+                android:clickable="true"
+                android:focusable="true"
+                android:elevation="4dp" />
+
         </LinearLayout>
 
     </ScrollView>
 
+    <!-- Back button -->
+    <LinearLayout
+        android:id="@+id/btn_back"
+        android:layout_width="wrap_content"
+        android:layout_height="46dp"
+        android:layout_gravity="bottom|start"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="28dp"
+        android:background="@drawable/bg_back_btn"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="20dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:elevation="4dp">
+
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:src="@drawable/ic_arrow_left"
+            android:layout_marginEnd="6dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Назад"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
     <!-- Save button -->
     <TextView
         android:id="@+id/btn_save"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="58dp"
-        android:layout_gravity="bottom"
-        android:layout_marginHorizontal="16dp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="28dp"
         android:background="@drawable/bg_btn_primary"
+        android:paddingHorizontal="32dp"
         android:text="Сохранить акт"
         android:textColor="#FFFFFF"
         android:textSize="16sp"

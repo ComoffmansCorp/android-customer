@@ -138,38 +138,6 @@
 
                     </FrameLayout>
 
-                    <!-- Consumer -->
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Потребитель"
-                        android:textSize="11sp"
-                        android:textColor="@color/text_hint"
-                        android:fontFamily="sans-serif-medium"
-                        android:letterSpacing="0.06"
-                        android:layout_marginBottom="8dp" />
-
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="52dp"
-                        android:background="@drawable/bg_input"
-                        android:layout_marginBottom="18dp">
-
-                        <EditText
-                            android:id="@+id/et_consumer"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@null"
-                            android:paddingHorizontal="16dp"
-                            android:textSize="14sp"
-                            android:textColor="@color/text_primary"
-                            android:textColorHint="@color/text_hint"
-                            android:hint="Введите имя потребителя"
-                            android:singleLine="true"
-                            android:inputType="textPersonName" />
-
-                    </FrameLayout>
-
                     <!-- Date -->
                     <TextView
                         android:layout_width="wrap_content"
@@ -219,55 +187,131 @@
 
             </androidx.cardview.widget.CardView>
 
-            <!-- Meters button -->
+            <!-- Meters card: shown once the act exists -->
             <androidx.cardview.widget.CardView
+                android:id="@+id/card_meters"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="14dp"
+                android:visibility="gone"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="4dp"
                 app:cardBackgroundColor="#FFFFFF">
 
                 <LinearLayout
-                    android:id="@+id/btn_meters"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:paddingHorizontal="20dp"
-                    android:clickable="true"
-                    android:focusable="true">
-
-                    <FrameLayout
-                        android:layout_width="38dp"
-                        android:layout_height="38dp"
-                        android:background="@drawable/bg_status_pending"
-                        android:layout_marginEnd="14dp">
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_gravity="center"
-                            android:src="@drawable/ic_info_outline"
-                            android:tint="@color/status_pending_fg" />
-                    </FrameLayout>
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
 
                     <TextView
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Счётчики"
-                        android:textSize="15sp"
-                        android:textColor="@color/text_primary"
-                        android:fontFamily="sans-serif-medium" />
+                        android:text="Приборы учёта"
+                        android:textSize="11sp"
+                        android:textColor="@color/text_hint"
+                        android:fontFamily="sans-serif-medium"
+                        android:letterSpacing="0.06"
+                        android:layout_marginBottom="10dp" />
 
-                    <ImageView
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
-                        android:src="@drawable/ic_chevron_right" />
+                    <LinearLayout
+                        android:id="@+id/ll_meters_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" />
+
+                    <TextView
+                        android:id="@+id/btn_add_meter"
+                        android:layout_width="match_parent"
+                        android:layout_height="46dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/bg_btn_secondary"
+                        android:text="+ Добавить прибор"
+                        android:textColor="@color/brand"
+                        android:textSize="14sp"
+                        android:fontFamily="sans-serif-medium"
+                        android:gravity="center"
+                        android:clickable="true"
+                        android:focusable="true" />
 
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
+
+            <!-- Photos card: shown once the act exists -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_photos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="14dp"
+                android:visibility="gone"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="4dp"
+                app:cardBackgroundColor="#FFFFFF">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Фотофиксация"
+                        android:textSize="11sp"
+                        android:textColor="@color/text_hint"
+                        android:fontFamily="sans-serif-medium"
+                        android:letterSpacing="0.06"
+                        android:layout_marginBottom="10dp" />
+
+                    <HorizontalScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:scrollbars="none">
+
+                        <LinearLayout
+                            android:id="@+id/ll_photos_list"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal" />
+
+                    </HorizontalScrollView>
+
+                    <TextView
+                        android:id="@+id/btn_add_photo"
+                        android:layout_width="match_parent"
+                        android:layout_height="46dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/bg_btn_secondary"
+                        android:text="+ Добавить фото"
+                        android:textColor="@color/brand"
+                        android:textSize="14sp"
+                        android:fontFamily="sans-serif-medium"
+                        android:gravity="center"
+                        android:clickable="true"
+                        android:focusable="true" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- Finish task button: shown once the act exists -->
+            <TextView
+                android:id="@+id/btn_finish_task"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:layout_marginBottom="14dp"
+                android:visibility="gone"
+                android:background="@drawable/bg_btn_primary"
+                android:text="Завершить наряд"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center"
+                android:clickable="true"
+                android:focusable="true"
+                android:elevation="4dp" />
 
             <!-- Remarks card -->
             <androidx.cardview.widget.CardView
