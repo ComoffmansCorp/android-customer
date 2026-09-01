@@ -79,10 +79,17 @@ class RequestDetailFragment : Fragment() {
         }
     }
 
+    private var lastRenderedMessageSignature: String? = null
+
     /** Polls every 5s while the view is visible -- bound to
      * viewLifecycleOwner so it's cancelled automatically on destroy, and
      * only one loop ever runs even if bind() is called again after a
-     * status change. */
+     * status change. Skips re-rendering when nothing changed: rebuilding
+     * llChatMessages' children on every tick reflows the whole scroll
+     * content around the input field below it, which was enough view
+     * churn to make Android Studio's Running Devices mirror lose sync
+     * with that EditText mid-keystroke (falls back to its own on-screen
+     * input helper instead of forwarding typed text). */
     private fun startChatPolling(requestId: Long) {
         chatPollJob?.cancel()
         chatPollJob = viewLifecycleOwner.lifecycleScope.launch {
@@ -95,6 +102,10 @@ class RequestDetailFragment : Fragment() {
     }
 
     private fun renderMessages(messages: List<MessageResponse>) {
+        val signature = messages.joinToString("|") { "${it.id}:${it.readAt}" }
+        if (signature == lastRenderedMessageSignature) return
+        lastRenderedMessageSignature = signature
+
         val myUserId = AuthManager.userId
         b.llChatMessages.removeAllViews()
         messages.forEach { m ->
