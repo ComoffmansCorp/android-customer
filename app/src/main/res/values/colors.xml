@@ -1,12 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Brand — aged brass (seal-tag accent), matches the web admin's
-         "Опломбировано" system: cool steel housing + warm brass fitting. -->
-    <color name="brand">#9C6F2C</color>
-    <color name="brand_mid">#B8863A</color>
-    <color name="brand_light">#D1A768</color>
-    <color name="brand_pale">#F4E8D0</color>
-
     <!-- UI -->
     <color name="bg_screen">#F4F6F6</color>
     <color name="surface">#FFFFFF</color>
@@ -18,23 +11,6 @@
     <color name="input_bg">#EEF1F2</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#FF000000</color>
-
-    <!-- Status: same metallurgy metaphor as the dispatcher admin — awaiting
-         (raw steel), in progress (working copper/blue), done (verdigris). -->
-    <color name="status_pending_bg">#E4E8EA</color>
-    <color name="status_pending_fg">#47555F</color>
-    <color name="status_progress_bg">#DCE8F2</color>
-    <color name="status_progress_fg">#2C5074</color>
-    <color name="status_done_bg">#DCEAE3</color>
-    <color name="status_done_fg">#2E5F4C</color>
-    <color name="status_canceled_bg">#F1E3DE</color>
-    <color name="status_canceled_fg">#7A4033</color>
-
-    <!-- Strip colors for cards -->
-    <color name="strip_pending">#5C6B74</color>
-    <color name="strip_progress">#35608F</color>
-    <color name="strip_done">#3F7A63</color>
-    <color name="strip_canceled">#8A5445</color>
 
     <!-- "Мастерская" — the MASTER-role marketplace screens are a distinct
          product surface from the dispatcher/inspector B2B flow above (same
@@ -59,10 +35,7 @@
     <color name="mk_status_canceled_bg">#FBE9E7</color>
     <color name="mk_status_canceled_fg">#B3261E</color>
 
-    <!-- Legacy aliases (referenced by old shape drawables) -->
+    <!-- Legacy aliases (still referenced) -->
     <color name="peach_light">#E4D2A8</color>
-    <color name="peach_circle">#ECDFC0</color>
     <color name="card_stroke">#DDE3E6</color>
-    <color name="status_pending">#E4E8EA</color>
-    <color name="peach">#C99A56</color>
 </resources>

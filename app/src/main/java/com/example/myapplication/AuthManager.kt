@@ -11,8 +11,7 @@ object AuthManager {
     private const val KEY_REFRESH_TOKEN = "refreshToken"
     private const val KEY_FULL_NAME     = "fullName"
     private const val KEY_ROLE          = "role"
-    private const val KEY_TENANT        = "tenantName"
-    private const val KEY_TENANT_CODE   = "tenantCode"
+    private const val KEY_USER_ID       = "userId"
 
     private lateinit var prefs: SharedPreferences
 
@@ -36,21 +35,16 @@ object AuthManager {
         get() = prefs.getString(KEY_ROLE, null)
         set(v) = prefs.edit().putString(KEY_ROLE, v).apply()
 
-    var tenantName: String?
-        get() = prefs.getString(KEY_TENANT, null)
-        set(v) = prefs.edit().putString(KEY_TENANT, v).apply()
-
-    var tenantCode: String?
-        get() = prefs.getString(KEY_TENANT_CODE, null)
-        set(v) = prefs.edit().putString(KEY_TENANT_CODE, v).apply()
+    var userId: Long
+        get() = prefs.getLong(KEY_USER_ID, 0L)
+        set(v) = prefs.edit().putLong(KEY_USER_ID, v).apply()
 
     fun save(response: AuthResponse) {
         accessToken  = response.accessToken
         refreshToken = response.refreshToken
         fullName     = response.fullName
         role         = response.role
-        tenantName   = response.tenantName
-        tenantCode   = response.tenantCode
+        userId       = response.userId
     }
 
     /** Called by the token-refresh authenticator: only the token pair changes. */

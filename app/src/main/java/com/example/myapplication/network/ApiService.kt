@@ -1,8 +1,5 @@
 package com.example.myapplication.network
 
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
-import okhttp3.ResponseBody
 import retrofit2.http.*
 
 interface ApiService {
@@ -14,128 +11,63 @@ interface ApiService {
     @POST("api/auth/refresh")
     suspend fun refresh(@Body request: RefreshRequest): AuthResponse
 
-    // ── Tasks ───────────────────────────────────────────────────────────────
-    // The backend scopes results to the caller's own tasks for the
-    // ELECTRICIAN role, so no assigneeId filter is needed here.
-    @GET("api/tasks")
-    suspend fun getTasks(
-        @Query("status") status: String? = null,
-        @Query("page") page: Int = 1,
-        @Query("pageSize") pageSize: Int = 50
-    ): PageResponse<TaskResponse>
+    // ── Catalog (public) ──────────────────────────────────────────────────────
+    @GET("api/catalog/categories")
+    suspend fun getCategories(): List<CategoryResponse>
 
-    @GET("api/tasks/{id}")
-    suspend fun getTask(@Path("id") id: Long): TaskResponse
+    @GET("api/catalog/services")
+    suspend fun getServices(@Query("categoryId") categoryId: Long? = null): List<ServiceResponse>
 
-    @POST("api/tasks/{id}/start")
-    suspend fun startTask(@Path("id") id: Long): TaskResponse
-
-    @POST("api/tasks/{id}/complete")
-    suspend fun completeTask(@Path("id") id: Long): TaskResponse
-
-    // ── Inspection acts ─────────────────────────────────────────────────────
-    @POST("api/acts/inspection")
-    suspend fun createInspectionAct(@Body request: InspectionActRequest): InspectionActResponse
-
-    @GET("api/acts/inspection/{id}")
-    suspend fun getInspectionAct(@Path("id") id: Long): InspectionActResponse
-
-    @GET("api/acts/inspection/by-task/{taskId}")
-    suspend fun getInspectionActByTask(@Path("taskId") taskId: Long): InspectionActResponse
-
-    @GET("api/acts/inspection/{id}/meters")
-    suspend fun getMeters(@Path("id") actId: Long): List<MeterResponse>
-
-    @POST("api/acts/inspection/{id}/meters")
-    suspend fun addMeter(@Path("id") actId: Long, @Body request: MeterRequest): MeterResponse
-
-    @DELETE("api/acts/inspection/{id}/meters/{meterId}")
-    suspend fun deleteMeter(@Path("id") actId: Long, @Path("meterId") meterId: Long)
-
-    @Streaming
-    @GET("api/acts/inspection/{id}/pdf")
-    suspend fun downloadInspectionPdf(@Path("id") id: Long): ResponseBody
-
-    // ── Replacement acts ────────────────────────────────────────────────────
-    @POST("api/acts/replacement")
-    suspend fun createReplacementAct(@Body request: ReplacementActRequest): ReplacementActResponse
-
-    @GET("api/acts/replacement/{id}")
-    suspend fun getReplacementAct(@Path("id") id: Long): ReplacementActResponse
-
-    @GET("api/acts/replacement/by-task/{taskId}")
-    suspend fun getReplacementActByTask(@Path("taskId") taskId: Long): ReplacementActResponse
-
-    @Streaming
-    @GET("api/acts/replacement/{id}/pdf")
-    suspend fun downloadReplacementPdf(@Path("id") id: Long): ResponseBody
-
-    // ── Photos ──────────────────────────────────────────────────────────────
-    @Multipart
-    @POST("api/photos")
-    suspend fun uploadPhoto(
-        @Part file: MultipartBody.Part,
-        @Part("inspectionActId") inspectionActId: RequestBody? = null,
-        @Part("replacementActId") replacementActId: RequestBody? = null,
-        @Part("note") note: RequestBody? = null
-    ): PhotoResponse
-
-    @GET("api/photos/inspection/{actId}")
-    suspend fun getPhotosForInspection(@Path("actId") actId: Long): List<PhotoResponse>
-
-    @GET("api/photos/replacement/{actId}")
-    suspend fun getPhotosForReplacement(@Path("actId") actId: Long): List<PhotoResponse>
-
-    @Streaming
-    @GET("api/photos/{id}")
-    suspend fun downloadPhoto(@Path("id") id: Long): ResponseBody
-
-    @DELETE("api/photos/{id}")
-    suspend fun deletePhoto(@Path("id") id: Long)
-
-    // ── Addresses (reference/dictionary lookup) ─────────────────────────────
-    @GET("api/addresses")
-    suspend fun getAddresses(
-        @Query("search") search: String = "",
-        @Query("page") page: Int = 1,
-        @Query("pageSize") pageSize: Int = 50
-    ): PageResponse<AddressResponse>
-
-    // ── Marketplace (master role) ────────────────────────────────────────────
-    @GET("api/marketplace/categories")
-    suspend fun getMarketplaceCategories(): List<MarketplaceCategoryResponse>
-
-    @GET("api/marketplace/services")
-    suspend fun getMarketplaceServices(
-        @Query("categoryId") categoryId: Long? = null
-    ): List<MarketplaceServiceResponse>
-
-    @GET("api/marketplace/master/profile")
+    // ── Master profile ─────────────────────────────────────────────────────
+    @GET("api/master/profile")
     suspend fun getMasterProfile(): MasterProfileResponse
 
-    @PUT("api/marketplace/master/profile")
+    @PUT("api/master/profile")
     suspend fun updateMasterProfile(@Body request: UpdateMasterProfileRequest): MasterProfileResponse
 
-    // Server-side filtered by the master's own specializations — no client filter needed.
-    @GET("api/marketplace/requests/open")
+    @GET("api/masters/{id}/reviews")
+    suspend fun getMasterReviews(
+        @Path("id") id: Long,
+        @Query("page") page: Int = 1,
+        @Query("pageSize") pageSize: Int = 50
+    ): PageResponse<ReviewResponse>
+
+    // ── Requests ────────────────────────────────────────────────────────────
+    // Server-side filtered by the master's own specializations.
+    @GET("api/requests/open")
     suspend fun getOpenRequests(
         @Query("page") page: Int = 1,
         @Query("pageSize") pageSize: Int = 50
     ): PageResponse<ServiceRequestResponse>
 
-    // Requests this master has ever claimed (their own history/work list).
-    @GET("api/marketplace/requests")
+    // Requests ever assigned to this master (history/work list).
+    @GET("api/requests")
     suspend fun getMyRequests(
         @Query("page") page: Int = 1,
         @Query("pageSize") pageSize: Int = 50
     ): PageResponse<ServiceRequestResponse>
 
-    @GET("api/marketplace/requests/{id}")
+    @GET("api/requests/{id}")
     suspend fun getServiceRequest(@Path("id") id: Long): ServiceRequestResponse
 
-    @POST("api/marketplace/requests/{id}/claim")
-    suspend fun claimRequest(@Path("id") id: Long): ServiceRequestResponse
+    // Bidding: the master proposes a price/comment instead of directly
+    // claiming -- the client (web-only) picks one offer to accept.
+    @POST("api/requests/{id}/offers")
+    suspend fun submitOffer(@Path("id") id: Long, @Body request: SubmitOfferRequest): OfferResponse
 
-    @POST("api/marketplace/requests/{id}/complete")
+    @POST("api/requests/{id}/complete")
     suspend fun completeRequest(@Path("id") id: Long): ServiceRequestResponse
+
+    @POST("api/requests/{id}/cancel")
+    suspend fun cancelRequest(@Path("id") id: Long, @Body request: CancelRequestRequest): ServiceRequestResponse
+
+    @GET("api/requests/{id}/payment")
+    suspend fun getPayment(@Path("id") id: Long): PaymentResponse
+
+    // ── Chat ────────────────────────────────────────────────────────────────
+    @GET("api/requests/{id}/messages")
+    suspend fun getMessages(@Path("id") id: Long, @Query("sinceId") sinceId: Long? = null): List<MessageResponse>
+
+    @POST("api/requests/{id}/messages")
+    suspend fun sendMessage(@Path("id") id: Long, @Body request: SendMessageRequest): MessageResponse
 }

@@ -19,10 +19,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private var notificationMenuItem: MenuItem? = null
 
     private val roleLabels = mapOf(
-        "SUPER_ADMIN" to "Супер-администратор",
-        "TENANT_ADMIN" to "Администратор",
-        "DISPATCHER" to "Диспетчер",
-        "ELECTRICIAN" to "Инспектор",
         "MASTER" to "Мастер"
     )
 
@@ -66,24 +62,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
-    /**
-     * The B2B (electrician) and marketplace (master) drawer sections are
-     * mutually exclusive. MASTER also gets the "Мастерская" indigo accent
-     * on its own menu items instead of the B2B brass one -- same identity
-     * split as the web (MarketplaceShell.vue vs AppShell.vue).
-     */
+    /** Only one role exists on this app now (MASTER) -- always show the
+     * marketplace "Мастерская" menu, indigo accent. */
     private fun applyRoleMenu() {
-        val menu = b.navView.menu
-        val isMaster = AuthManager.isMaster
-        listOf(R.id.nav_tasks, R.id.nav_acts, R.id.nav_refs).forEach {
-            menu.findItem(it)?.isVisible = !isMaster
-        }
-        listOf(R.id.nav_available_requests, R.id.nav_my_requests, R.id.nav_master_profile).forEach {
-            menu.findItem(it)?.isVisible = isMaster
-        }
-        b.navView.itemIconTintList = android.content.res.ColorStateList.valueOf(
-            getColor(if (isMaster) R.color.mk_accent else R.color.brand)
-        )
+        b.navView.itemIconTintList = android.content.res.ColorStateList.valueOf(getColor(R.color.mk_accent))
     }
 
     private fun updateNavHeader() {
@@ -110,18 +92,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         b.drawerLayout.closeDrawer(GravityCompat.START)
         when (item.itemId) {
-            R.id.nav_tasks -> {
-                if (navController.currentDestination?.id != R.id.taskListFragment)
-                    navController.navigate(R.id.taskListFragment)
-            }
-            R.id.nav_refs -> {
-                if (navController.currentDestination?.id != R.id.dictionaryFragment)
-                    navController.navigate(R.id.dictionaryFragment)
-            }
-            R.id.nav_acts -> {
-                if (navController.currentDestination?.id != R.id.myActsFragment)
-                    navController.navigate(R.id.myActsFragment)
-            }
             R.id.nav_settings -> {
                 if (navController.currentDestination?.id != R.id.settingsFragment)
                     navController.navigate(R.id.settingsFragment)

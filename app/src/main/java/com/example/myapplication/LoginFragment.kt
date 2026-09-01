@@ -53,17 +53,15 @@ class LoginFragment : Fragment() {
 
         // Демо вход — заполняет поля и логинится
         b.btnDemo.setOnClickListener {
-            b.etTenantCode.setText("esc-ural")
-            b.etLogin.setText("kozlov_d")
-            b.etPassword.setText("demo123")
+            b.etLogin.setText("master1")
+            b.etPassword.setText("Demo12345")
             doLogin()
         }
     }
 
     private fun doLogin() {
-        val tenantCode = b.etTenantCode.text?.toString()?.trim() ?: ""
-        val username   = b.etLogin.text?.toString()?.trim() ?: ""
-        val password   = b.etPassword.text?.toString()?.trim() ?: ""
+        val username = b.etLogin.text?.toString()?.trim() ?: ""
+        val password = b.etPassword.text?.toString()?.trim() ?: ""
 
         if (username.isEmpty() || password.isEmpty()) {
             shake(b.btnLogin)
@@ -74,7 +72,7 @@ class LoginFragment : Fragment() {
 
         lifecycleScope.launch {
             runCatching {
-                ApiClient.api.login(LoginRequest(tenantCode, username, password))
+                ApiClient.api.login(LoginRequest(username, password))
             }.onSuccess { response ->
                 AuthManager.save(response)
                 findNavController().navigate(startDestinationAction())
@@ -87,9 +85,7 @@ class LoginFragment : Fragment() {
         }
     }
 
-    private fun startDestinationAction(): Int =
-        if (AuthManager.isMaster) R.id.action_login_to_availableRequests
-        else R.id.action_login_to_taskList
+    private fun startDestinationAction(): Int = R.id.action_login_to_availableRequests
 
     private fun setLoading(loading: Boolean) {
         b.btnLogin.isClickable = !loading

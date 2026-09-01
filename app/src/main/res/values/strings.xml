@@ -28,8 +28,8 @@
     <string name="available_requests">Доступные заявки</string>
     <string name="my_requests">Мои заявки</string>
     <string name="master_profile">Профиль мастера</string>
-    <string name="btn_claim">Взять</string>
-    <string name="btn_claim_work">Взять в работу</string>
+    <string name="btn_claim">Откликнуться</string>
+    <string name="btn_claim_work">Откликнуться с ценой</string>
     <string name="btn_complete_request">Завершить заявку</string>
     <string name="label_service">Услуга: </string>
     <string name="label_category">Категория: </string>

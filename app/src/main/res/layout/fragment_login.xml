@@ -233,7 +233,7 @@
                 android:textColor="@color/text_secondary"
                 android:textSize="14sp"
                 android:checked="true"
-                android:buttonTint="@color/brand"
+                android:buttonTint="@color/mk_accent"
                 android:layout_marginBottom="36dp" />
 
             <!-- Login button -->
@@ -259,7 +259,7 @@
                 android:layout_height="48dp"
                 android:layout_marginTop="12dp"
                 android:text="⚡  Демо вход"
-                android:textColor="@color/brand"
+                android:textColor="@color/mk_accent"
                 android:textSize="14sp"
                 android:gravity="center"
                 android:background="@drawable/bg_btn_secondary"

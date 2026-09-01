@@ -37,7 +37,6 @@ class SettingsFragment : Fragment() {
 
         b.tvFullName.text = AuthManager.fullName ?: "—"
         b.tvRole.text = AuthManager.role?.let { roleLabels[it] ?: it } ?: "—"
-        b.tvTenant.text = AuthManager.tenantName?.takeIf { it.isNotBlank() } ?: ""
 
         b.etBaseUrl.setText(AppSettings.baseUrl)
         b.btnSaveUrl.setOnClickListener {

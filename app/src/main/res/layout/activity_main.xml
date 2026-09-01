@@ -49,7 +49,7 @@
         android:background="@color/white"
         app:headerLayout="@layout/nav_header"
         app:menu="@menu/drawer_menu"
-        app:itemIconTint="@color/brand"
+        app:itemIconTint="@color/mk_accent"
         app:itemTextColor="@color/text_primary"
         app:itemIconPadding="4dp" />
 

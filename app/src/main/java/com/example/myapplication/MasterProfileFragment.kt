@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.example.myapplication.databinding.FragmentMasterProfileBinding
 import com.example.myapplication.network.ApiClient
-import com.example.myapplication.network.MarketplaceServiceResponse
+import com.example.myapplication.network.ServiceResponse
 import com.example.myapplication.network.UpdateMasterProfileRequest
 import com.example.myapplication.network.toUserMessage
 import kotlinx.coroutines.launch
@@ -44,8 +44,8 @@ class MasterProfileFragment : Fragment() {
 
     private fun load() {
         lifecycleScope.launch {
-            val categoriesResult = runCatching { ApiClient.api.getMarketplaceCategories() }
-            val servicesResult = runCatching { ApiClient.api.getMarketplaceServices() }
+            val categoriesResult = runCatching { ApiClient.api.getCategories() }
+            val servicesResult = runCatching { ApiClient.api.getServices() }
             val profileResult = runCatching { ApiClient.api.getMasterProfile() }
 
             if (categoriesResult.isFailure || servicesResult.isFailure || profileResult.isFailure) {
@@ -66,7 +66,7 @@ class MasterProfileFragment : Fragment() {
     }
 
     private fun buildSpecializationList(
-        services: List<MarketplaceServiceResponse>,
+        services: List<ServiceResponse>,
         categoryNames: Map<Long, String>,
         checkedIds: Set<Long>
     ) {

@@ -2,21 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/nav_tasks"
-        android:icon="@drawable/ic_clipboard"
-        android:title="@string/my_tasks" />
-
-    <item
-        android:id="@+id/nav_acts"
-        android:icon="@drawable/ic_paperclip"
-        android:title="@string/my_acts" />
-
-    <item
-        android:id="@+id/nav_refs"
-        android:icon="@drawable/ic_location"
-        android:title="@string/references" />
-
-    <item
         android:id="@+id/nav_available_requests"
         android:icon="@drawable/ic_target"
         android:title="@string/available_requests" />

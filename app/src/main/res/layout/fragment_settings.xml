@@ -123,7 +123,7 @@
                     android:layout_height="48dp"
                     android:background="@drawable/bg_btn_secondary"
                     android:text="Сохранить адрес"
-                    android:textColor="@color/brand"
+                    android:textColor="@color/mk_accent"
                     android:textSize="14sp"
                     android:fontFamily="sans-serif-medium"
                     android:gravity="center"
