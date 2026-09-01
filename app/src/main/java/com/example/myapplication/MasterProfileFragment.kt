@@ -60,8 +60,44 @@ class MasterProfileFragment : Fragment() {
 
             b.etCity.setText(profile.city ?: "")
             b.etBio.setText(profile.bio ?: "")
+            b.tvRatingAvg.text = "★ ${String.format("%.1f", profile.ratingAvg)}"
+            b.tvRatingCount.text = "${profile.ratingCount} ${reviewWord(profile.ratingCount)}"
 
             buildSpecializationList(services, categories.mapValues { it.value.name }, profile.specializationIds.toSet())
+            loadReviews(profile.userId)
+        }
+    }
+
+    private fun reviewWord(n: Int) = when {
+        n % 100 in 11..19 -> "отзывов"
+        n % 10 == 1        -> "отзыв"
+        n % 10 in 2..4     -> "отзыва"
+        else                -> "отзывов"
+    }
+
+    private fun loadReviews(masterId: Long) {
+        lifecycleScope.launch {
+            runCatching { ApiClient.api.getMasterReviews(masterId, pageSize = 20) }
+                .onSuccess { page ->
+                    b.llReviews.removeAllViews()
+                    page.items.forEach { review ->
+                        val card = TextView(requireContext()).apply {
+                            text = "★ ${review.rating}" + (review.comment?.takeIf { it.isNotBlank() }?.let { " — $it" } ?: "")
+                            setTextColor(ContextCompat.getColor(requireContext(), R.color.mk_ink))
+                            setBackgroundColor(ContextCompat.getColor(requireContext(), android.R.color.white))
+                            textSize = 13f
+                            setPadding(24, 16, 24, 16)
+                            val lp = android.widget.LinearLayout.LayoutParams(
+                                android.widget.LinearLayout.LayoutParams.MATCH_PARENT,
+                                android.widget.LinearLayout.LayoutParams.WRAP_CONTENT
+                            )
+                            lp.bottomMargin = 8
+                            layoutParams = lp
+                        }
+                        b.llReviews.addView(card)
+                    }
+                }
+                .onFailure { /* reviews are supplementary -- profile still works without them */ }
         }
     }
 
