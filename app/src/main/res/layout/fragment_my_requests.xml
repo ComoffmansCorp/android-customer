@@ -49,7 +49,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="22sp"
                         android:textColor="#FFFFFF"
-                        android:fontFamily="serif"
+                        android:fontFamily="@font/playfair_display"
                         android:layout_marginTop="2dp" />
 
                 </LinearLayout>

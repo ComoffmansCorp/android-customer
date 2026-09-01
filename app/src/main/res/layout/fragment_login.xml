@@ -93,46 +93,6 @@
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="28dp" />
 
-            <!-- Tenant code field -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Код компании"
-                android:textSize="12sp"
-                android:textColor="@color/text_secondary"
-                android:fontFamily="sans-serif-medium"
-                android:letterSpacing="0.06"
-                android:layout_marginBottom="8dp" />
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:background="@drawable/bg_input"
-                android:layout_marginBottom="20dp">
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_gravity="center_vertical|start"
-                    android:layout_marginStart="16dp"
-                    android:src="@drawable/ic_settings_outline"
-                    android:tint="@color/text_hint" />
-
-                <EditText
-                    android:id="@+id/et_tenant_code"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@null"
-                    android:hint="Например: company1"
-                    android:textColorHint="@color/text_hint"
-                    android:textColor="@color/text_primary"
-                    android:textSize="15sp"
-                    android:paddingStart="48dp"
-                    android:paddingEnd="16dp"
-                    android:inputType="text"
-                    android:singleLine="true" />
-
-            </FrameLayout>
 
             <!-- Login field -->
             <TextView

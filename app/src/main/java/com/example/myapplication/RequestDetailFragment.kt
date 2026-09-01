@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
@@ -15,6 +16,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.myapplication.databinding.FragmentRequestDetailBinding
 import com.example.myapplication.network.ApiClient
+import com.example.myapplication.network.MessageResponse
+import com.example.myapplication.network.SendMessageRequest
 import com.example.myapplication.network.ServiceRequestResponse
 import com.example.myapplication.network.SubmitOfferRequest
 import com.example.myapplication.network.toUserMessage
@@ -25,6 +28,7 @@ class RequestDetailFragment : Fragment() {
     private var _b: FragmentRequestDetailBinding? = null
     private val b get() = _b!!
     private var request: ServiceRequestResponse? = null
+    private var chatPollJob: kotlinx.coroutines.Job? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -65,6 +69,62 @@ class RequestDetailFragment : Fragment() {
 
         applyStatus(r.status)
         updateButtons(r)
+
+        if (r.masterId != null) {
+            b.cardChat.visibility = View.VISIBLE
+            b.btnSendMessage.setOnClickListener { sendMessage(r) }
+            startChatPolling(r.id)
+        } else {
+            b.cardChat.visibility = View.GONE
+        }
+    }
+
+    /** Polls every 5s while the view is visible -- bound to
+     * viewLifecycleOwner so it's cancelled automatically on destroy, and
+     * only one loop ever runs even if bind() is called again after a
+     * status change. */
+    private fun startChatPolling(requestId: Long) {
+        chatPollJob?.cancel()
+        chatPollJob = viewLifecycleOwner.lifecycleScope.launch {
+            while (true) {
+                runCatching { ApiClient.api.getMessages(requestId) }
+                    .onSuccess { renderMessages(it) }
+                kotlinx.coroutines.delay(5000)
+            }
+        }
+    }
+
+    private fun renderMessages(messages: List<MessageResponse>) {
+        val myUserId = AuthManager.userId
+        b.llChatMessages.removeAllViews()
+        messages.forEach { m ->
+            val bubble = TextView(requireContext()).apply {
+                text = m.text
+                textSize = 13f
+                setPadding(28, 18, 28, 18)
+                val mine = m.senderId == myUserId
+                setBackgroundResource(if (mine) R.drawable.bg_mk_btn_primary else R.drawable.bg_input)
+                setTextColor(ContextCompat.getColor(requireContext(), if (mine) android.R.color.white else R.color.mk_ink))
+                val lp = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+                lp.bottomMargin = 12
+                lp.gravity = if (mine) android.view.Gravity.END else android.view.Gravity.START
+                layoutParams = lp
+            }
+            b.llChatMessages.addView(bubble)
+        }
+    }
+
+    private fun sendMessage(r: ServiceRequestResponse) {
+        val text = b.etChatMessage.text?.toString()?.trim().orEmpty()
+        if (text.isEmpty()) return
+        lifecycleScope.launch {
+            runCatching { ApiClient.api.sendMessage(r.id, SendMessageRequest(text)) }
+                .onSuccess {
+                    b.etChatMessage.setText("")
+                    runCatching { ApiClient.api.getMessages(r.id) }.onSuccess { renderMessages(it) }
+                }
+                .onFailure { Toast.makeText(requireContext(), it.toUserMessage(), Toast.LENGTH_SHORT).show() }
+        }
     }
 
     private fun updateButtons(r: ServiceRequestResponse) {

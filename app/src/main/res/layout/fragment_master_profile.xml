@@ -36,7 +36,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="28sp"
-                    android:fontFamily="serif"
+                    android:fontFamily="@font/playfair_display"
                     android:textColor="#FFFFFF"
                     tools:text="★ 4.8" />
 
@@ -84,7 +84,7 @@
                     android:text="@string/label_city"
                     android:textSize="11sp"
                     android:textColor="@color/mk_ink_hint"
-                    android:fontFamily="sans-serif-medium"
+                    android:fontFamily="@font/golos_text"
                     android:letterSpacing="0.06"
                     android:layout_marginBottom="8dp" />
 
@@ -111,7 +111,7 @@
                     android:text="@string/label_bio"
                     android:textSize="11sp"
                     android:textColor="@color/mk_ink_hint"
-                    android:fontFamily="sans-serif-medium"
+                    android:fontFamily="@font/golos_text"
                     android:letterSpacing="0.06"
                     android:layout_marginBottom="8dp" />
 
@@ -156,7 +156,7 @@
                     android:text="@string/label_specializations"
                     android:textSize="11sp"
                     android:textColor="@color/mk_ink_hint"
-                    android:fontFamily="sans-serif-medium"
+                    android:fontFamily="@font/golos_text"
                     android:letterSpacing="0.06"
                     android:layout_marginBottom="12dp" />
 
@@ -178,7 +178,7 @@
             android:text="@string/btn_save"
             android:textColor="#FFFFFF"
             android:textSize="15sp"
-            android:fontFamily="sans-serif-medium"
+            android:fontFamily="@font/golos_text"
             android:gravity="center"
             android:clickable="true"
             android:focusable="true"

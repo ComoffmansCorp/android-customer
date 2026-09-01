@@ -252,6 +252,83 @@
                 android:elevation="4dp"
                 android:visibility="gone" />
 
+            <!-- Chat with client -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_chat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="80dp"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="4dp"
+                app:cardBackgroundColor="#FFFFFF"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="18dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Чат с клиентом"
+                        android:textSize="15sp"
+                        android:fontFamily="@font/playfair_display"
+                        android:textColor="@color/mk_ink"
+                        android:layout_marginBottom="10dp" />
+
+                    <LinearLayout
+                        android:id="@+id/ll_chat_messages"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center_vertical">
+
+                        <FrameLayout
+                            android:layout_width="0dp"
+                            android:layout_height="46dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_input">
+                            <EditText
+                                android:id="@+id/et_chat_message"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@null"
+                                android:paddingHorizontal="14dp"
+                                android:textSize="13sp"
+                                android:textColor="@color/mk_ink"
+                                android:hint="Сообщение…"
+                                android:singleLine="true" />
+                        </FrameLayout>
+
+                        <TextView
+                            android:id="@+id/btn_send_message"
+                            android:layout_width="wrap_content"
+                            android:layout_height="46dp"
+                            android:layout_marginStart="8dp"
+                            android:paddingHorizontal="16dp"
+                            android:gravity="center"
+                            android:text="Отправить"
+                            android:textSize="13sp"
+                            android:textColor="#FFFFFF"
+                            android:background="@drawable/bg_mk_btn_primary"
+                            android:clickable="true"
+                            android:focusable="true" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
         </LinearLayout>
     </ScrollView>
 
