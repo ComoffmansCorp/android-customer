@@ -22,7 +22,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         "SUPER_ADMIN" to "Супер-администратор",
         "TENANT_ADMIN" to "Администратор",
         "DISPATCHER" to "Диспетчер",
-        "ELECTRICIAN" to "Инспектор"
+        "ELECTRICIAN" to "Инспектор",
+        "MASTER" to "Мастер"
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,9 +60,30 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     toggle.syncState()
                     invalidateOptionsMenu()
                     updateNavHeader()
+                    applyRoleMenu()
                 }
             }
         }
+    }
+
+    /**
+     * The B2B (electrician) and marketplace (master) drawer sections are
+     * mutually exclusive. MASTER also gets the "Мастерская" indigo accent
+     * on its own menu items instead of the B2B brass one -- same identity
+     * split as the web (MarketplaceShell.vue vs AppShell.vue).
+     */
+    private fun applyRoleMenu() {
+        val menu = b.navView.menu
+        val isMaster = AuthManager.isMaster
+        listOf(R.id.nav_tasks, R.id.nav_acts, R.id.nav_refs).forEach {
+            menu.findItem(it)?.isVisible = !isMaster
+        }
+        listOf(R.id.nav_available_requests, R.id.nav_my_requests, R.id.nav_master_profile).forEach {
+            menu.findItem(it)?.isVisible = isMaster
+        }
+        b.navView.itemIconTintList = android.content.res.ColorStateList.valueOf(
+            getColor(if (isMaster) R.color.mk_accent else R.color.brand)
+        )
     }
 
     private fun updateNavHeader() {
@@ -103,6 +125,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.nav_settings -> {
                 if (navController.currentDestination?.id != R.id.settingsFragment)
                     navController.navigate(R.id.settingsFragment)
+            }
+            R.id.nav_available_requests -> {
+                if (navController.currentDestination?.id != R.id.availableRequestsFragment)
+                    navController.navigate(R.id.availableRequestsFragment)
+            }
+            R.id.nav_my_requests -> {
+                if (navController.currentDestination?.id != R.id.myRequestsFragment)
+                    navController.navigate(R.id.myRequestsFragment)
+            }
+            R.id.nav_master_profile -> {
+                if (navController.currentDestination?.id != R.id.masterProfileFragment)
+                    navController.navigate(R.id.masterProfileFragment)
             }
             R.id.nav_logout   -> {
                 AuthManager.clear()

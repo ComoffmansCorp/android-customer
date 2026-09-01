@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Instrument-dial mark: the same circular gauge motif as the web admin's
+     logo (AppShell.vue) and the auth split-panel, so the brand reads as one
+     product across platforms instead of a generic avatar-in-a-circle. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="80dp"
+    android:height="80dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:pathData="M12,12m-9.25,0a9.25,9.25 0,1 1,18.5 0a9.25,9.25 0,1 1,-18.5 0"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="1.4"
+        android:fillColor="#00000000" />
+    <path
+        android:pathData="M12,4v2M12,18v2M20,12h-2M6,12H4M17.36,6.64l-1.42,1.42M8.06,15.94l-1.42,1.42M17.36,17.36l-1.42,-1.42M8.06,8.06 6.64,6.64"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="1.4"
+        android:strokeLineCap="round" />
+    <path
+        android:pathData="M12,12m-2,0a2,2 0,1 1,4 0a2,2 0,1 1,-4 0"
+        android:fillColor="#FFFFFF" />
+</vector>

@@ -27,11 +27,37 @@
     <color name="status_progress_fg">#2C5074</color>
     <color name="status_done_bg">#DCEAE3</color>
     <color name="status_done_fg">#2E5F4C</color>
+    <color name="status_canceled_bg">#F1E3DE</color>
+    <color name="status_canceled_fg">#7A4033</color>
 
     <!-- Strip colors for cards -->
     <color name="strip_pending">#5C6B74</color>
     <color name="strip_progress">#35608F</color>
     <color name="strip_done">#3F7A63</color>
+    <color name="strip_canceled">#8A5445</color>
+
+    <!-- "Мастерская" — the MASTER-role marketplace screens are a distinct
+         product surface from the dispatcher/inspector B2B flow above (same
+         split as the web: MarketplaceShell.vue vs AppShell.vue), so they get
+         their own indigo/off-white identity instead of the brass one. -->
+    <color name="mk_bg">#FBFAF7</color>
+    <color name="mk_ink">#17160F</color>
+    <color name="mk_ink_soft">#55524A</color>
+    <color name="mk_ink_faint">#6E6B60</color>
+    <color name="mk_ink_hint">#9B978A</color>
+    <color name="mk_line">#E2DED2</color>
+    <color name="mk_accent">#5B4BE0</color>
+    <color name="mk_accent_press">#4536BC</color>
+    <color name="mk_accent_soft">#E7E3FC</color>
+
+    <color name="mk_status_open_bg">#EFEBE1</color>
+    <color name="mk_status_open_fg">#55524A</color>
+    <color name="mk_status_progress_bg">#E7E3FC</color>
+    <color name="mk_status_progress_fg">#5B4BE0</color>
+    <color name="mk_status_done_bg">#DCEFE1</color>
+    <color name="mk_status_done_fg">#2E7D4F</color>
+    <color name="mk_status_canceled_bg">#FBE9E7</color>
+    <color name="mk_status_canceled_fg">#B3261E</color>
 
     <!-- Legacy aliases (referenced by old shape drawables) -->
     <color name="peach_light">#E4D2A8</color>

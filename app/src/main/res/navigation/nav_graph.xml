@@ -15,6 +15,11 @@
             app:destination="@id/taskListFragment"
             app:popUpTo="@id/loginFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_login_to_availableRequests"
+            app:destination="@id/availableRequestsFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -84,5 +89,42 @@
         android:name="com.example.myapplication.SettingsFragment"
         android:label="Настройки"
         tools:layout="@layout/fragment_settings" />
+
+    <fragment
+        android:id="@+id/availableRequestsFragment"
+        android:name="com.example.myapplication.AvailableRequestsFragment"
+        android:label="Доступные заявки"
+        tools:layout="@layout/fragment_available_requests">
+        <action
+            android:id="@+id/action_availableRequests_to_requestDetail"
+            app:destination="@id/requestDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/myRequestsFragment"
+        android:name="com.example.myapplication.MyRequestsFragment"
+        android:label="Мои заявки"
+        tools:layout="@layout/fragment_my_requests">
+        <action
+            android:id="@+id/action_myRequests_to_requestDetail"
+            app:destination="@id/requestDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/requestDetailFragment"
+        android:name="com.example.myapplication.RequestDetailFragment"
+        android:label="Заявка"
+        tools:layout="@layout/fragment_request_detail">
+        <argument
+            android:name="requestId"
+            app:argType="long"
+            android:defaultValue="0L" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/masterProfileFragment"
+        android:name="com.example.myapplication.MasterProfileFragment"
+        android:label="Профиль мастера"
+        tools:layout="@layout/fragment_master_profile" />
 
 </navigation>

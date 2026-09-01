@@ -148,6 +148,56 @@ data class PhotoResponse(
     @SerializedName("sizeBytes")        val sizeBytes: Long
 )
 
+// ── Marketplace (master role) — mirrors internal/marketplace/dto.go ───────────
+
+data class MarketplaceCategoryResponse(
+    @SerializedName("id")     val id: Long,
+    @SerializedName("name")   val name: String,
+    @SerializedName("active") val active: Boolean
+)
+
+data class MarketplaceServiceResponse(
+    @SerializedName("id")          val id: Long,
+    @SerializedName("categoryId")  val categoryId: Long,
+    @SerializedName("name")        val name: String,
+    @SerializedName("description") val description: String?,
+    @SerializedName("active")      val active: Boolean
+)
+
+data class MasterProfileResponse(
+    @SerializedName("city")              val city: String?,
+    @SerializedName("bio")               val bio: String?,
+    @SerializedName("specializationIds") val specializationIds: List<Long>
+)
+
+data class UpdateMasterProfileRequest(
+    @SerializedName("city")              val city: String,
+    @SerializedName("bio")               val bio: String,
+    @SerializedName("specializationIds") val specializationIds: List<Long>
+)
+
+data class ServiceRequestResponse(
+    @SerializedName("id")           val id: Long,
+    @SerializedName("serviceId")    val serviceId: Long,
+    @SerializedName("serviceName")  val serviceName: String?,
+    @SerializedName("categoryName") val categoryName: String?,
+    @SerializedName("description")  val description: String,
+    @SerializedName("addressText")  val addressText: String,
+    @SerializedName("latitude")     val latitude: Double?,
+    @SerializedName("longitude")    val longitude: Double?,
+    @SerializedName("status")       val status: String,     // OPEN | IN_PROGRESS | COMPLETED | CANCELED
+    @SerializedName("clientId")     val clientId: Long,
+    @SerializedName("clientName")   val clientName: String?,
+    @SerializedName("masterId")     val masterId: Long?,
+    @SerializedName("masterName")   val masterName: String?,
+    @SerializedName("createdAt")    val createdAt: String,
+    @SerializedName("updatedAt")    val updatedAt: String,
+    @SerializedName("claimedAt")    val claimedAt: String?,
+    @SerializedName("completedAt")  val completedAt: String?,
+    @SerializedName("canceledAt")   val canceledAt: String?,
+    @SerializedName("cancelReason") val cancelReason: String?
+)
+
 // ── API error — mirrors internal/platform/httpx.Problem (RFC 7807) ────────────
 
 data class ApiError(

@@ -33,9 +33,9 @@ class LoginFragment : Fragment() {
         (activity as? MainActivity)?.setToolbarTitle(getString(R.string.app_name))
         (activity as? MainActivity)?.setNotificationIconVisible(false)
 
-        // Если уже авторизован — сразу на список задач
+        // Если уже авторизован — сразу на стартовый экран своей роли
         if (AuthManager.isLoggedIn) {
-            findNavController().navigate(R.id.action_login_to_taskList)
+            findNavController().navigate(startDestinationAction())
             return
         }
 
@@ -77,7 +77,7 @@ class LoginFragment : Fragment() {
                 ApiClient.api.login(LoginRequest(tenantCode, username, password))
             }.onSuccess { response ->
                 AuthManager.save(response)
-                findNavController().navigate(R.id.action_login_to_taskList)
+                findNavController().navigate(startDestinationAction())
             }.onFailure { err ->
                 setLoading(false)
                 val msg = err.message ?: "Ошибка входа"
@@ -86,6 +86,10 @@ class LoginFragment : Fragment() {
             }
         }
     }
+
+    private fun startDestinationAction(): Int =
+        if (AuthManager.isMaster) R.id.action_login_to_availableRequests
+        else R.id.action_login_to_taskList
 
     private fun setLoading(loading: Boolean) {
         b.btnLogin.isClickable = !loading

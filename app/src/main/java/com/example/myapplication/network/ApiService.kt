@@ -100,4 +100,42 @@ interface ApiService {
         @Query("page") page: Int = 1,
         @Query("pageSize") pageSize: Int = 50
     ): PageResponse<AddressResponse>
+
+    // ── Marketplace (master role) ────────────────────────────────────────────
+    @GET("api/marketplace/categories")
+    suspend fun getMarketplaceCategories(): List<MarketplaceCategoryResponse>
+
+    @GET("api/marketplace/services")
+    suspend fun getMarketplaceServices(
+        @Query("categoryId") categoryId: Long? = null
+    ): List<MarketplaceServiceResponse>
+
+    @GET("api/marketplace/master/profile")
+    suspend fun getMasterProfile(): MasterProfileResponse
+
+    @PUT("api/marketplace/master/profile")
+    suspend fun updateMasterProfile(@Body request: UpdateMasterProfileRequest): MasterProfileResponse
+
+    // Server-side filtered by the master's own specializations — no client filter needed.
+    @GET("api/marketplace/requests/open")
+    suspend fun getOpenRequests(
+        @Query("page") page: Int = 1,
+        @Query("pageSize") pageSize: Int = 50
+    ): PageResponse<ServiceRequestResponse>
+
+    // Requests this master has ever claimed (their own history/work list).
+    @GET("api/marketplace/requests")
+    suspend fun getMyRequests(
+        @Query("page") page: Int = 1,
+        @Query("pageSize") pageSize: Int = 50
+    ): PageResponse<ServiceRequestResponse>
+
+    @GET("api/marketplace/requests/{id}")
+    suspend fun getServiceRequest(@Path("id") id: Long): ServiceRequestResponse
+
+    @POST("api/marketplace/requests/{id}/claim")
+    suspend fun claimRequest(@Path("id") id: Long): ServiceRequestResponse
+
+    @POST("api/marketplace/requests/{id}/complete")
+    suspend fun completeRequest(@Path("id") id: Long): ServiceRequestResponse
 }

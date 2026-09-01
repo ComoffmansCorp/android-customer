@@ -64,4 +64,5 @@ object AuthManager {
     }
 
     val isLoggedIn: Boolean get() = accessToken != null
+    val isMaster: Boolean get() = role == "MASTER"
 }

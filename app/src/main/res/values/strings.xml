@@ -24,6 +24,26 @@
     <string name="nav_header_name">Елизавета Р.</string>
     <string name="nav_header_role">Электрик</string>
 
+    <!-- Marketplace (master role) -->
+    <string name="available_requests">Доступные заявки</string>
+    <string name="my_requests">Мои заявки</string>
+    <string name="master_profile">Профиль мастера</string>
+    <string name="btn_claim">Взять</string>
+    <string name="btn_claim_work">Взять в работу</string>
+    <string name="btn_complete_request">Завершить заявку</string>
+    <string name="label_service">Услуга: </string>
+    <string name="label_category">Категория: </string>
+    <string name="label_client">Клиент: </string>
+    <string name="label_description">Описание: </string>
+    <string name="status_open_str">Открыта</string>
+    <string name="status_canceled_str">Отменена</string>
+    <string name="empty_open_requests">Нет заявок по вашей специализации.\nПроверьте профиль мастера — возможно, специализации ещё не выбраны.</string>
+    <string name="empty_my_requests">Вы ещё не взяли ни одной заявки</string>
+    <string name="label_city">Город</string>
+    <string name="label_bio">О себе</string>
+    <string name="label_specializations">Специализации</string>
+    <string name="master_profile_saved">Профиль сохранён</string>
+
     <!-- Order detail -->
     <string name="btn_accept_work">Принять в работу</string>
     <string name="btn_back">← Назад</string>

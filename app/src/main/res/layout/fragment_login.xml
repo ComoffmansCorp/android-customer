@@ -18,33 +18,13 @@
         android:gravity="center"
         android:paddingBottom="16dp">
 
-        <!-- App icon circle -->
-        <FrameLayout
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_marginBottom="14dp">
-
-            <View
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:background="@drawable/bg_avatar_ring_white"
-                android:alpha="0.25" />
-
-            <View
-                android:layout_width="68dp"
-                android:layout_height="68dp"
-                android:layout_gravity="center"
-                android:background="@drawable/bg_avatar_ring_white"
-                android:alpha="0.15" />
-
-            <ImageView
-                android:layout_width="38dp"
-                android:layout_height="38dp"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_person"
-                android:tint="#FFFFFF" />
-
-        </FrameLayout>
+        <!-- Instrument-dial mark, echoing the web admin's logo -->
+        <ImageView
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_marginBottom="14dp"
+            android:src="@drawable/ic_dial_mark"
+            android:alpha="0.92" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -63,6 +43,17 @@
             android:textColor="#FFFFFF"
             android:alpha="0.7"
             android:layout_marginTop="4dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="УЗЕЛ УЧЁТА № 24019"
+            android:fontFamily="monospace"
+            android:textSize="11sp"
+            android:textColor="#FFFFFF"
+            android:alpha="0.55"
+            android:letterSpacing="0.1"
+            android:layout_marginTop="10dp" />
 
     </LinearLayout>
 
