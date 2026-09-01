@@ -35,7 +35,6 @@
     <color name="mk_status_canceled_bg">#FBE9E7</color>
     <color name="mk_status_canceled_fg">#B3261E</color>
 
-    <!-- Legacy aliases (still referenced) -->
-    <color name="peach_light">#E4D2A8</color>
+    <!-- Legacy alias (still referenced) -->
     <color name="card_stroke">#DDE3E6</color>
 </resources>

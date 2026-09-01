@@ -18,42 +18,40 @@
         android:gravity="center"
         android:paddingBottom="16dp">
 
-        <!-- Instrument-dial mark, echoing the web admin's logo -->
-        <ImageView
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:layout_marginBottom="14dp"
-            android:src="@drawable/ic_dial_mark"
-            android:alpha="0.92" />
+        <!-- Brand mark, same "М" wordmark as the web's MarketplaceShell.vue
+             logo, one identity across platforms, not a generic icon. -->
+        <FrameLayout
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/bg_brand_mark">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="М"
+                android:textSize="28sp"
+                android:textColor="#5B4BE0"
+                android:fontFamily="@font/playfair_display" />
+        </FrameLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ЭЛЕКТРОСЕРВИС"
+            android:text="МАСТЕРСКАЯ"
             android:textSize="22sp"
             android:textColor="#FFFFFF"
-            android:fontFamily="sans-serif-medium"
+            android:fontFamily="@font/golos_text"
             android:letterSpacing="0.08" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Управление заданиями"
+            android:text="Кабинет мастера"
             android:textSize="13sp"
             android:textColor="#FFFFFF"
-            android:alpha="0.7"
+            android:alpha="0.75"
             android:layout_marginTop="4dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="УЗЕЛ УЧЁТА № 24019"
-            android:fontFamily="monospace"
-            android:textSize="11sp"
-            android:textColor="#FFFFFF"
-            android:alpha="0.55"
-            android:letterSpacing="0.1"
-            android:layout_marginTop="10dp" />
 
     </LinearLayout>
 
