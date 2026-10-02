@@ -1,18 +1,32 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
     <style name="Base.Theme.MyApplication" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">@color/mk_accent</item>
-        <item name="colorOnPrimary">@color/white</item>
-        <item name="colorSurface">@color/mk_bg</item>
+        <item name="colorOnPrimary">@color/mk_on_accent</item>
+        <item name="colorSecondary">@color/mk_accent</item>
+        <item name="colorOnSecondary">@color/mk_on_accent</item>
+        <item name="colorSurface">@color/mk_surface</item>
         <item name="colorOnSurface">@color/mk_ink</item>
+        <item name="colorSurfaceVariant">@color/mk_raised</item>
+        <item name="colorOnSurfaceVariant">@color/mk_ink_soft</item>
+        <item name="colorOutline">@color/mk_line</item>
+        <item name="colorError">@color/mk_status_canceled_fg</item>
+        <item name="android:colorBackground">@color/mk_bg</item>
         <item name="android:windowBackground">@color/mk_bg</item>
-        <item name="android:statusBarColor">@color/mk_accent_press</item>
-        <item name="android:navigationBarColor">@color/mk_bg</item>
+        <item name="android:fontFamily">@font/onest</item>
+        <item name="fontFamily">@font/onest</item>
+        <item name="android:textColorPrimary">@color/mk_ink</item>
+        <item name="android:textColorSecondary">@color/mk_ink_soft</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">?attr/isLightTheme</item>
+        <item name="android:windowLightNavigationBar">?attr/isLightTheme</item>
+        <item name="android:windowActionModeOverlay">true</item>
     </style>
-
     <style name="Theme.MyApplication" parent="Base.Theme.MyApplication" />
-
-    <style name="Toolbar.Title" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
-        <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">17sp</item>
+    <style name="Toolbar.Title" parent="TextAppearance.Material3.TitleMedium">
+        <item name="android:fontFamily">@font/unbounded</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/mk_ink</item>
     </style>
 </resources>

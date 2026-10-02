@@ -1,40 +1,34 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <!-- UI -->
-    <color name="bg_screen">#F4F6F6</color>
-    <color name="surface">#FFFFFF</color>
-    <color name="dark">#14181C</color>
-    <color name="text_primary">#14181C</color>
-    <color name="text_secondary">#4D5B66</color>
-    <color name="text_hint">#93A1AB</color>
-    <color name="divider">#DDE3E6</color>
-    <color name="input_bg">#EEF1F2</color>
+    <color name="mk_bg">#F5F7F2</color>
+    <color name="mk_surface">#FFFFFF</color>
+    <color name="mk_raised">#EAF0E5</color>
+    <color name="mk_ink">#18251C</color>
+    <color name="mk_ink_soft">#435449</color>
+    <color name="mk_ink_faint">#5C6B61</color>
+    <color name="mk_ink_hint">#5C6B61</color>
+    <color name="mk_line">#DCE3D9</color>
+    <color name="mk_accent">#356B21</color>
+    <color name="mk_accent_press">#275218</color>
+    <color name="mk_accent_soft">#E7F2DC</color>
+    <color name="mk_on_accent">#FFFFFF</color>
+    <color name="mk_status_open_bg">#FFF0DD</color>
+    <color name="mk_status_open_fg">#A64B08</color>
+    <color name="mk_status_progress_bg">#E4EEFB</color>
+    <color name="mk_status_progress_fg">#225E9E</color>
+    <color name="mk_status_done_bg">#E1F2E4</color>
+    <color name="mk_status_done_fg">#287143</color>
+    <color name="mk_status_canceled_bg">#FBECEE</color>
+    <color name="mk_status_canceled_fg">#B13540</color>
+    <color name="bg_screen">@color/mk_bg</color>
+    <color name="surface">@color/mk_surface</color>
+    <color name="dark">@color/mk_ink</color>
+    <color name="text_primary">@color/mk_ink</color>
+    <color name="text_secondary">@color/mk_ink_soft</color>
+    <color name="text_hint">@color/mk_ink_hint</color>
+    <color name="divider">@color/mk_line</color>
+    <color name="input_bg">@color/mk_raised</color>
+    <color name="card_stroke">@color/mk_line</color>
     <color name="white">#FFFFFF</color>
-    <color name="black">#FF000000</color>
-
-    <!-- "Мастерская" — the MASTER-role marketplace screens are a distinct
-         product surface from the dispatcher/inspector B2B flow above (same
-         split as the web: MarketplaceShell.vue vs AppShell.vue), so they get
-         their own indigo/off-white identity instead of the brass one. -->
-    <color name="mk_bg">#FBFAF7</color>
-    <color name="mk_ink">#17160F</color>
-    <color name="mk_ink_soft">#55524A</color>
-    <color name="mk_ink_faint">#6E6B60</color>
-    <color name="mk_ink_hint">#9B978A</color>
-    <color name="mk_line">#E2DED2</color>
-    <color name="mk_accent">#5B4BE0</color>
-    <color name="mk_accent_press">#4536BC</color>
-    <color name="mk_accent_soft">#E7E3FC</color>
-
-    <color name="mk_status_open_bg">#EFEBE1</color>
-    <color name="mk_status_open_fg">#55524A</color>
-    <color name="mk_status_progress_bg">#E7E3FC</color>
-    <color name="mk_status_progress_fg">#5B4BE0</color>
-    <color name="mk_status_done_bg">#DCEFE1</color>
-    <color name="mk_status_done_fg">#2E7D4F</color>
-    <color name="mk_status_canceled_bg">#FBE9E7</color>
-    <color name="mk_status_canceled_fg">#B3261E</color>
-
-    <!-- Legacy alias (still referenced) -->
-    <color name="card_stroke">#DDE3E6</color>
+    <color name="black">#000000</color>
 </resources>

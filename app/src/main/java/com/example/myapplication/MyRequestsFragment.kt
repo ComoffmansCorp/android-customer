@@ -1,6 +1,7 @@
 package com.example.myapplication
 
 import android.os.Bundle
+import androidx.core.widget.doAfterTextChanged
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.databinding.FragmentMyRequestsBinding
+import com.example.myapplication.network.ServiceRequestResponse
 import com.example.myapplication.network.ApiClient
 import com.example.myapplication.network.toUserMessage
 import kotlinx.coroutines.launch
@@ -19,6 +21,7 @@ class MyRequestsFragment : Fragment() {
 
     private var _b: FragmentMyRequestsBinding? = null
     private val b get() = _b!!
+    private var loadedRequests = emptyList<ServiceRequestResponse>()
     private lateinit var adapter: ServiceRequestAdapter
 
     override fun onCreateView(
@@ -49,6 +52,8 @@ class MyRequestsFragment : Fragment() {
 
         b.rvRequests.layoutManager = LinearLayoutManager(requireContext())
         b.rvRequests.adapter = adapter
+        b.etSearch.doAfterTextChanged { filterRequests() }
+        b.btnRefresh.setOnClickListener { loadRequests() }
     }
 
     override fun onResume() {
@@ -56,18 +61,41 @@ class MyRequestsFragment : Fragment() {
         loadRequests()
     }
 
+    private var loadingRequests = false
+
     private fun loadRequests() {
-        lifecycleScope.launch {
-            runCatching { ApiClient.api.getMyRequests(pageSize = 100) }
-                .onSuccess { page ->
-                    adapter.replaceAll(page.items)
-                    updateCount(page.items.size)
-                    b.tvEmptyState.visibility = if (page.items.isEmpty()) View.VISIBLE else View.GONE
-                }
-                .onFailure {
-                    Toast.makeText(requireContext(), "Ошибка загрузки: ${it.toUserMessage()}", Toast.LENGTH_LONG).show()
-                }
+        if (loadingRequests) return
+        loadingRequests = true
+        b.progress.visibility = View.VISIBLE
+        b.btnRefresh.isEnabled = false
+        viewLifecycleOwner.lifecycleScope.launch {
+            try {
+                val first = ApiClient.api.getMyRequests(pageSize = 100)
+                val all = first.items.toMutableList()
+                for (page in 2..first.totalPages) all.addAll(ApiClient.api.getMyRequests(page = page, pageSize = 100).items)
+                loadedRequests = all.distinctBy { it.id }.sortedByDescending { it.createdAt }
+                filterRequests()
+            } catch (error: Exception) {
+                if (error is kotlinx.coroutines.CancellationException) throw error
+                b.tvRequestCount.text = "Заявки недоступны"
+                b.tvEmptyState.text = "Не удалось загрузить заявки. Нажмите кнопку обновления."
+                b.tvEmptyState.visibility = if (loadedRequests.isEmpty()) View.VISIBLE else View.GONE
+                Toast.makeText(requireContext(), error.toUserMessage(), Toast.LENGTH_LONG).show()
+            } finally {
+                loadingRequests = false
+                _b?.progress?.visibility = View.GONE
+                _b?.btnRefresh?.isEnabled = true
+            }
         }
+    }
+
+    private fun filterRequests() {
+        val query = b.etSearch.text.toString().trim()
+        val visible = loadedRequests.filter { query.isEmpty() || "${it.serviceName} ${it.addressText} ${it.description}".contains(query, ignoreCase = true) }
+        adapter.replaceAll(visible)
+        updateCount(visible.size)
+        b.tvEmptyState.visibility = if (visible.isEmpty()) View.VISIBLE else View.GONE
+        b.tvEmptyState.text = if (query.isNotEmpty()) "По этому запросу ничего не найдено. Попробуйте другие слова." else getString(R.string.empty_my_requests)
     }
 
     private fun updateCount(n: Int) {

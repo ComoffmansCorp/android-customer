@@ -46,6 +46,7 @@ class LoginFragment : Fragment() {
             else
                 InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
             b.etPassword.setSelection(b.etPassword.text?.length ?: 0)
+            b.ivTogglePassword.contentDescription = if (passwordVisible) "Скрыть пароль" else "Показать пароль"
             b.ivTogglePassword.alpha = if (passwordVisible) 1f else 0.5f
         }
 
@@ -54,7 +55,7 @@ class LoginFragment : Fragment() {
         // Демо вход — заполняет поля и логинится
         b.btnDemo.setOnClickListener {
             b.etLogin.setText("master1")
-            b.etPassword.setText("Demo12345")
+            b.etPassword.setText("demo12345")
             doLogin()
         }
     }
@@ -70,13 +71,19 @@ class LoginFragment : Fragment() {
 
         setLoading(true)
 
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             runCatching {
                 ApiClient.api.login(LoginRequest(username, password))
             }.onSuccess { response ->
+                if (response.role != "MASTER") {
+                    setLoading(false)
+                    Toast.makeText(requireContext(), "Для входа нужен аккаунт мастера. Кабинет заказчика доступен на сайте.", Toast.LENGTH_LONG).show()
+                    return@onSuccess
+                }
                 AuthManager.save(response)
                 findNavController().navigate(startDestinationAction())
             }.onFailure { err ->
+                    if (_b == null) return@onFailure
                 setLoading(false)
                 val msg = err.message ?: "Ошибка входа"
                 Toast.makeText(requireContext(), msg, Toast.LENGTH_LONG).show()
@@ -88,8 +95,9 @@ class LoginFragment : Fragment() {
     private fun startDestinationAction(): Int = R.id.action_login_to_availableRequests
 
     private fun setLoading(loading: Boolean) {
-        b.btnLogin.isClickable = !loading
-        b.btnLogin.text = if (loading) "Вход…" else "ВОЙТИ"
+        b.btnLogin.isEnabled = !loading
+        b.btnDemo.isEnabled = !loading
+        b.btnLogin.text = if (loading) "Вход…" else "Войти"
         b.btnLogin.alpha = if (loading) 0.7f else 1f
     }
 

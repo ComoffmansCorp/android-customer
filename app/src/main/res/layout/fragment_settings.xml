@@ -1,153 +1,32 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/bg_screen"
-    android:fillViewport="true">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingHorizontal="16dp"
-        android:paddingTop="20dp"
-        android:paddingBottom="32dp">
-
-        <!-- Profile card -->
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="14dp"
-            app:cardCornerRadius="24dp"
-            app:cardElevation="6dp"
-            app:cardBackgroundColor="#FFFFFF">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="20dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Профиль"
-                    android:textSize="11sp"
-                    android:textColor="@color/text_hint"
-                    android:fontFamily="sans-serif-medium"
-                    android:letterSpacing="0.06"
-                    android:layout_marginBottom="10dp" />
-
-                <TextView
-                    android:id="@+id/tv_full_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="16sp"
-                    android:textColor="@color/text_primary"
-                    android:fontFamily="sans-serif-medium" />
-
-                <TextView
-                    android:id="@+id/tv_role"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:textSize="14sp"
-                    android:textColor="@color/text_secondary" />
-
-                <TextView
-                    android:id="@+id/tv_tenant"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:textSize="13sp"
-                    android:textColor="@color/text_hint" />
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <!-- Server card -->
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="14dp"
-            app:cardCornerRadius="24dp"
-            app:cardElevation="6dp"
-            app:cardBackgroundColor="#FFFFFF">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="20dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Адрес сервера"
-                    android:textSize="11sp"
-                    android:textColor="@color/text_hint"
-                    android:fontFamily="sans-serif-medium"
-                    android:letterSpacing="0.06"
-                    android:layout_marginBottom="8dp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Для эмулятора: http://10.0.2.2:8080/. Для реального устройства укажите IP сервера в локальной сети, например http://192.168.1.10:8080/."
-                    android:textSize="12sp"
-                    android:textColor="@color/text_hint"
-                    android:layout_marginBottom="12dp" />
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="52dp"
-                    android:background="@drawable/bg_input"
-                    android:layout_marginBottom="14dp">
-                    <EditText
-                        android:id="@+id/et_base_url"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@null"
-                        android:paddingHorizontal="16dp"
-                        android:textSize="14sp"
-                        android:textColor="@color/text_primary"
-                        android:inputType="textUri"
-                        android:singleLine="true" />
-                </FrameLayout>
-
-                <TextView
-                    android:id="@+id/btn_save_url"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:background="@drawable/bg_btn_secondary"
-                    android:text="Сохранить адрес"
-                    android:textColor="@color/mk_accent"
-                    android:textSize="14sp"
-                    android:fontFamily="sans-serif-medium"
-                    android:gravity="center"
-                    android:clickable="true"
-                    android:focusable="true" />
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <TextView
-            android:id="@+id/btn_logout"
-            android:layout_width="match_parent"
-            android:layout_height="54dp"
-            android:background="@drawable/bg_btn_primary"
-            android:text="Выйти из аккаунта"
-            android:textColor="#FFFFFF"
-            android:textSize="15sp"
-            android:fontFamily="sans-serif-medium"
-            android:gravity="center"
-            android:clickable="true"
-            android:focusable="true"
-            android:elevation="4dp" />
-
+<?xml version='1.0' encoding='utf-8'?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:fillViewport="true" android:background="@color/mk_bg" android:clipToPadding="false">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="24dp">
+        <TextView style="@style/Mk.Heading" android:text="Настройки" />
+        <Space android:layout_width="1dp" android:layout_height="20dp" />
+        <LinearLayout style="@style/Mk.Card">
+            <TextView style="@style/Mk.Section" android:id="@+id/tv_full_name" />
+            <Space android:layout_width="1dp" android:layout_height="6dp" />
+            <TextView style="@style/Mk.Caption" android:id="@+id/tv_role" />
+        </LinearLayout>
+        <Space android:layout_width="1dp" android:layout_height="16dp" />
+        <LinearLayout style="@style/Mk.Card">
+            <TextView style="@style/Mk.Section" android:text="Внешний вид" />
+            <Space android:layout_width="1dp" android:layout_height="8dp" />
+            <TextView style="@style/Mk.Caption" android:text="Выберите удобную тему приложения." />
+            <Space android:layout_width="1dp" android:layout_height="16dp" />
+            <com.google.android.material.button.MaterialButton android:id="@+id/btn_theme" style="@style/Mk.Button.Secondary" android:text="Переключить тему" />
+        </LinearLayout>
+        <Space android:layout_width="1dp" android:layout_height="16dp" />
+        <LinearLayout style="@style/Mk.Card">
+            <TextView style="@style/Mk.Section" android:text="Подключение" />
+            <Space android:layout_width="1dp" android:layout_height="8dp" />
+            <TextView style="@style/Mk.Caption" android:text="Для эмулятора: http://10.0.2.2:8000/. На телефоне укажите адрес компьютера в вашей Wi-Fi сети и порт 8000." />
+            <Space android:layout_width="1dp" android:layout_height="14dp" />
+            <EditText android:id="@+id/et_base_url" style="@style/Mk.Field" android:hint="Адрес сервера" android:inputType="textUri" android:singleLine="true" />
+            <Space android:layout_width="1dp" android:layout_height="14dp" />
+            <com.google.android.material.button.MaterialButton android:id="@+id/btn_save_url" style="@style/Mk.Button.Secondary" android:text="Сохранить адрес" />
+        </LinearLayout>
+        <Space android:layout_width="1dp" android:layout_height="24dp" />
+        <com.google.android.material.button.MaterialButton android:id="@+id/btn_logout" style="@style/Mk.Button.Secondary" android:text="Выйти из аккаунта" />
     </LinearLayout>
-
 </ScrollView>

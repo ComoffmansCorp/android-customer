@@ -1,12 +1,1 @@
-<?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <item
-        android:id="@+id/action_notifications"
-        android:icon="@drawable/ic_bell"
-        android:title="Уведомления"
-        app:showAsAction="always"
-        android:visible="false" />
-
-</menu>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"><item android:id="@+id/action_theme" android:icon="@drawable/ic_sun" android:title="Светлая тема" app:showAsAction="always"/><item android:id="@+id/action_settings" android:icon="@drawable/ic_settings_outline" android:title="Настройки" app:showAsAction="always"/></menu>

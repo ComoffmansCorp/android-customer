@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <color name="mk_bg">#0C100E</color>
+    <color name="mk_surface">#141A16</color>
+    <color name="mk_raised">#1C241E</color>
+    <color name="mk_ink">#F0F2EE</color>
+    <color name="mk_ink_soft">#B8C0BC</color>
+    <color name="mk_ink_faint">#929D97</color>
+    <color name="mk_ink_hint">#929D97</color>
+    <color name="mk_line">#354139</color>
+    <color name="mk_accent">#C1F76B</color>
+    <color name="mk_accent_press">#D5FF97</color>
+    <color name="mk_accent_soft">#26351B</color>
+    <color name="mk_on_accent">#10180B</color>
+    <color name="mk_status_open_bg">#392819</color>
+    <color name="mk_status_open_fg">#FFB568</color>
+    <color name="mk_status_progress_bg">#1B2C3F</color>
+    <color name="mk_status_progress_fg">#B2D7FC</color>
+    <color name="mk_status_done_bg">#1C3025</color>
+    <color name="mk_status_done_fg">#9FE3B8</color>
+    <color name="mk_status_canceled_bg">#301C1E</color>
+    <color name="mk_status_canceled_fg">#FFA1A1</color>
+</resources>

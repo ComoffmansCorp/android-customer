@@ -21,6 +21,9 @@ class ServiceRequestAdapter(
         fun bind(request: ServiceRequestResponse) {
             val ctx = b.root.context
 
+            b.tvRequestMeta.text = "Заказ №${request.id}"
+            b.tvRequestPrice.text = request.agreedPrice?.let { java.text.NumberFormat.getIntegerInstance(java.util.Locale("ru")).format(it) + " ₽" } ?: "Предложите свою цену"
+            b.root.setOnClickListener { onDetails(request) }
             b.tvRequestTitle.text = request.serviceName ?: "Услуга"
             b.tvRequestSubtitle.text = buildString {
                 append(request.addressText)
@@ -31,14 +34,14 @@ class ServiceRequestAdapter(
             }
 
             val style = when (request.status) {
-                "OPEN"      -> StatusStyle(R.color.mk_ink_hint, R.drawable.bg_mk_status_open, R.color.mk_status_open_fg, R.drawable.ic_status_open, ctx.getString(R.string.status_open_str))
-                "ASSIGNED"  -> StatusStyle(R.color.mk_accent, R.drawable.bg_mk_status_progress, R.color.mk_status_progress_fg, R.drawable.ic_status_assigned, ctx.getString(R.string.status_in_progress_str))
+                "OPEN"      -> StatusStyle(R.color.mk_status_open_fg, R.drawable.bg_mk_status_open, R.color.mk_status_open_fg, R.drawable.ic_status_open, ctx.getString(R.string.status_open_str))
+                "ASSIGNED"  -> StatusStyle(R.color.mk_status_progress_fg, R.drawable.bg_mk_status_progress, R.color.mk_status_progress_fg, R.drawable.ic_status_assigned, ctx.getString(R.string.status_in_progress_str))
                 "COMPLETED" -> StatusStyle(R.color.mk_status_done_fg, R.drawable.bg_mk_status_done, R.color.mk_status_done_fg, R.drawable.ic_status_done, ctx.getString(R.string.status_done_str))
                 "CANCELED"  -> StatusStyle(R.color.mk_status_canceled_fg, R.drawable.bg_mk_status_canceled, R.color.mk_status_canceled_fg, R.drawable.ic_status_canceled, ctx.getString(R.string.status_canceled_str))
-                else        -> StatusStyle(R.color.mk_ink_hint, R.drawable.bg_mk_status_open, R.color.mk_status_open_fg, R.drawable.ic_status_open, request.status)
+                else        -> StatusStyle(R.color.mk_status_open_fg, R.drawable.bg_mk_status_open, R.color.mk_status_open_fg, R.drawable.ic_status_open, request.status)
             }
 
-            b.statusStrip.setBackgroundColor(ContextCompat.getColor(ctx, style.stripColorRes))
+            b.statusStrip.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(ctx, style.stripColorRes))
             b.ivStatusBg.setBackgroundResource(style.badgeBgRes)
             b.ivStatusIcon.setImageResource(style.iconRes)
             b.ivStatusIcon.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(ctx, style.fgColorRes))

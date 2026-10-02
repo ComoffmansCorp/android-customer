@@ -1,0 +1,4 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/mk_status_open_fg" />
+    <corners android:radius="2dp" />
+</shape>

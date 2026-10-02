@@ -1,105 +1,22 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/mk_bg">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <!-- Summary header card -->
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="8dp"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="4dp"
-            app:cardBackgroundColor="@color/mk_accent">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingHorizontal="20dp"
-                android:paddingVertical="16dp"
-                android:gravity="center_vertical">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Открытый пул по вашей специализации"
-                        android:textSize="13sp"
-                        android:textColor="#FFFFFF"
-                        android:alpha="0.8" />
-
-                    <TextView
-                        android:id="@+id/tv_request_count"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="22sp"
-                        android:textColor="#FFFFFF"
-                        android:fontFamily="@font/playfair_display"
-                        android:layout_marginTop="2dp" />
-
-                </LinearLayout>
-
-                <FrameLayout
-                    android:layout_width="52dp"
-                    android:layout_height="52dp">
-
-                    <View
-                        android:layout_width="52dp"
-                        android:layout_height="52dp"
-                        android:background="@drawable/bg_avatar_ring_white"
-                        android:alpha="0.2" />
-
-                    <ImageView
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_target"
-                        android:tint="#FFFFFF" />
-
-                </FrameLayout>
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_requests"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:paddingTop="8dp"
-            android:paddingBottom="24dp"
-            android:paddingHorizontal="16dp"
-            android:clipToPadding="false"
-            android:scrollbars="none" />
-
+<?xml version='1.0' encoding='utf-8'?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:background="@color/mk_bg">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:paddingHorizontal="20dp" android:paddingTop="24dp" android:paddingBottom="12dp">
+        <TextView style="@style/Mk.Caption" android:text="Рабочее пространство" android:textColor="@color/mk_accent" />
+        <Space android:layout_width="1dp" android:layout_height="10dp" />
+        <TextView style="@style/Mk.Heading" android:text="Найдите свой заказ" />
+        <Space android:layout_width="1dp" android:layout_height="8dp" />
+        <TextView style="@style/Mk.Caption" android:text="Свежие задачи по вашим специализациям" />
+        <Space android:layout_width="1dp" android:layout_height="20dp" />
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical">
+            <EditText android:id="@+id/et_search" style="@style/Mk.Field" android:hint="Поиск по услуге или адресу" android:layout_width="0dp" android:layout_weight="1" android:singleLine="true" android:inputType="text" android:drawableStart="@drawable/ic_search" android:drawablePadding="12dp" />
+            <ImageButton android:id="@+id/btn_refresh" android:layout_width="48dp" android:layout_height="48dp" android:layout_marginStart="8dp" android:background="?attr/selectableItemBackgroundBorderless" android:src="@drawable/ic_refresh" android:contentDescription="Обновить заявки" />
+        </LinearLayout>
+        <Space android:layout_width="1dp" android:layout_height="16dp" />
+        <TextView style="@style/Mk.Caption" android:id="@+id/tv_request_count" android:text="Загружаем заявки…" />
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/tv_empty_state"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginHorizontal="40dp"
-        android:gravity="center"
-        android:textSize="14sp"
-        android:textColor="@color/mk_ink_hint"
-        android:lineSpacingExtra="4dp"
-        android:visibility="gone" />
-
-</FrameLayout>
+    <ProgressBar android:id="@+id/progress" style="?android:attr/progressBarStyleHorizontal" android:layout_width="match_parent" android:layout_height="2dp" android:indeterminate="true" android:indeterminateTint="@color/mk_accent" android:visibility="gone" />
+    <FrameLayout android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+        <androidx.recyclerview.widget.RecyclerView android:id="@+id/rv_requests" android:layout_width="match_parent" android:layout_height="match_parent" android:paddingHorizontal="20dp" android:paddingBottom="20dp" android:clipToPadding="false" />
+        <TextView android:id="@+id/tv_empty_state" style="@style/Mk.Caption" android:layout_gravity="center" android:padding="32dp" android:gravity="center" android:text="Ничего не найдено. Попробуйте другой запрос." android:visibility="gone" />
+    </FrameLayout>
+</LinearLayout>

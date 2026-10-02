@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="350" viewBox="0 0 1200 350" role="img" aria-label="Работа под рукой.">
+<defs><pattern id="grid" width="28" height="28" patternUnits="userSpaceOnUse"><path d="M28 0H0V28" fill="none" stroke="#213127" stroke-width=".5"/></pattern><linearGradient id="glow" x2="1" y2="1"><stop stop-color="#c1f76b"/><stop offset="1" stop-color="#7cba48"/></linearGradient></defs>
+<rect width="1200" height="350" rx="24" fill="#0c120e"/><rect x="830" width="370" height="350" rx="24" fill="url(#grid)"/>
+<path d="M872 78H1120M872 176H1140M910 274H1120" stroke="#3b513b" stroke-width="2"/>
+<rect x="931" y="93" width="146" height="146" rx="34" fill="url(#glow)" transform="rotate(-9 1004 166)"/>
+<text x="1004" y="193" text-anchor="middle" fill="#102015" font-family="Arial,sans-serif" font-size="82" font-weight="800">M</text>
+<circle cx="889" cy="78" r="6" fill="#c1f76b"/><circle cx="1116" cy="274" r="6" fill="#c1f76b"/>
+<g font-family="Arial,Helvetica,sans-serif"><text x="62" y="69" fill="#96ad96" font-size="14" letter-spacing="3">МАСТЕРСКАЯ / ANDROID</text>
+<text x="58" y="155" fill="#f4f7f0" font-size="61" font-weight="800" letter-spacing="-2">Работа под рукой.</text>
+<text x="62" y="202" fill="#a6b4a7" font-size="20">Заказы, отклики и переписка в приложении мастера.</text><rect x="62" y="251" width="88" height="36" rx="18" fill="#19231b" stroke="#334331"/><text x="79" y="275" fill="#c1f76b" font-size="14">KOTLIN</text><rect x="162" y="251" width="106" height="36" rx="18" fill="#19231b" stroke="#334331"/><text x="179" y="275" fill="#c1f76b" font-size="14">MATERIAL</text><rect x="280" y="251" width="106" height="36" rx="18" fill="#19231b" stroke="#334331"/><text x="297" y="275" fill="#c1f76b" font-size="14">RETROFIT</text><rect x="398" y="251" width="124" height="36" rx="18" fill="#19231b" stroke="#334331"/><text x="415" y="275" fill="#c1f76b" font-size="14">ANDROID 8+</text></g>
+<rect x="62" y="326" width="106" height="3" rx="1.5" fill="#c1f76b"/>
+</svg>

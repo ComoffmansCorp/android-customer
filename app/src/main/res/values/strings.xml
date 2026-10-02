@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ЭЛЕКТРОСЕРВИС</string>
+    <string name="app_name">Мастерская</string>
     <string name="action_settings">Settings</string>
 
     <!-- Login -->
@@ -13,7 +13,7 @@
     <!-- Task list -->
     <string name="my_tasks">Мои задачи</string>
     <string name="btn_accept">Принять</string>
-    <string name="btn_details">Подробнее…</string>
+    <string name="btn_details">Подробнее</string>
 
     <!-- Drawer -->
     <string name="my_acts">Мои акты</string>

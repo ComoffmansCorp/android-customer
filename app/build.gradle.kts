@@ -51,6 +51,11 @@ dependencies {
     implementation("androidx.cardview:cardview:1.0.0")
     implementation("androidx.recyclerview:recyclerview:1.3.2")
 
+    // Images -- loads master avatars served from MinIO via the backend
+    // gateway (e.g. "/media/masters/master1.jpg", resolved against
+    // AppSettings.baseUrl same as every API call).
+    implementation("io.coil-kt:coil:2.6.0")
+
     // Network
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")

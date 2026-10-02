@@ -15,10 +15,9 @@ class SettingsFragment : Fragment() {
     private val b get() = _b!!
 
     private val roleLabels = mapOf(
-        "SUPER_ADMIN" to "Супер-администратор",
-        "TENANT_ADMIN" to "Администратор",
-        "DISPATCHER" to "Диспетчер",
-        "ELECTRICIAN" to "Инспектор"
+        "SUPER_ADMIN" to "Администратор платформы",
+        "CLIENT" to "Клиент",
+        "MASTER" to "Мастер"
     )
 
     override fun onCreateView(
@@ -38,6 +37,9 @@ class SettingsFragment : Fragment() {
         b.tvFullName.text = AuthManager.fullName ?: "—"
         b.tvRole.text = AuthManager.role?.let { roleLabels[it] ?: it } ?: "—"
 
+        b.btnTheme.text = if (AppSettings.darkTheme) "Включить светлую тему" else "Включить тёмную тему"
+        b.btnTheme.setOnClickListener { (activity as? MainActivity)?.toggleTheme() }
+        b.btnLogout.visibility = if (AuthManager.isLoggedIn) View.VISIBLE else View.GONE
         b.etBaseUrl.setText(AppSettings.baseUrl)
         b.btnSaveUrl.setOnClickListener {
             AppSettings.baseUrl = b.etBaseUrl.text?.toString().orEmpty()
@@ -46,8 +48,7 @@ class SettingsFragment : Fragment() {
         }
 
         b.btnLogout.setOnClickListener {
-            AuthManager.clear()
-            findNavController().navigate(R.id.loginFragment)
+            (activity as? MainActivity)?.logout()
         }
     }
 

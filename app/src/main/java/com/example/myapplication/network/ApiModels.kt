@@ -64,14 +64,17 @@ data class ServiceResponse(
 
 data class MasterProfileResponse(
     @SerializedName("userId")            val userId: Long,
+    @SerializedName("fullName")          val fullName: String?,
     @SerializedName("city")              val city: String?,
     @SerializedName("bio")               val bio: String?,
+    @SerializedName("avatarUrl")         val avatarUrl: String?,
     @SerializedName("ratingAvg")         val ratingAvg: Double,
     @SerializedName("ratingCount")       val ratingCount: Int,
     @SerializedName("specializationIds") val specializationIds: List<Long>
 )
 
 data class UpdateMasterProfileRequest(
+    @SerializedName("avatarUrl")         val avatarUrl: String?,
     @SerializedName("city")              val city: String,
     @SerializedName("bio")               val bio: String,
     @SerializedName("specializationIds") val specializationIds: List<Long>

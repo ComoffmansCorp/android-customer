@@ -1,5 +1,1 @@
-<?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="#DCEFE1" />
-    <corners android:radius="10dp" />
-</shape>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"><solid android:color="@color/mk_status_done_bg"/><corners android:radius="8dp"/></shape>

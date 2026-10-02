@@ -1,189 +1,42 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/mk_bg"
-    android:fillViewport="true">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingHorizontal="16dp"
-        android:paddingTop="20dp"
-        android:paddingBottom="32dp">
-
-        <!-- Rating summary card -->
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="14dp"
-            app:cardCornerRadius="24dp"
-            app:cardElevation="6dp"
-            app:cardBackgroundColor="@color/mk_accent">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:padding="20dp">
-
-                <TextView
-                    android:id="@+id/tv_rating_avg"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="28sp"
-                    android:fontFamily="@font/playfair_display"
-                    android:textColor="#FFFFFF"
-                    tools:text="★ 4.8" />
-
-                <TextView
-                    android:id="@+id/tv_rating_count"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginStart="12dp"
-                    android:textSize="13sp"
-                    android:textColor="#FFFFFF"
-                    android:alpha="0.85"
-                    tools:text="12 отзывов" />
-
+<?xml version='1.0' encoding='utf-8'?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="match_parent" android:fillViewport="true" android:background="@color/mk_bg" android:clipToPadding="false">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="24dp">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical">
+            <com.google.android.material.imageview.ShapeableImageView android:id="@+id/iv_avatar" android:layout_width="76dp" android:layout_height="76dp" android:scaleType="centerCrop" android:src="@drawable/ic_person" android:background="@drawable/bg_mk_icon_circle" app:shapeAppearanceOverlay="@style/Mk.Avatar" app:strokeColor="@color/mk_line" app:strokeWidth="1dp" android:contentDescription="Фото профиля" />
+            <LinearLayout android:layout_height="wrap_content" android:orientation="vertical" android:layout_width="0dp" android:layout_weight="1" android:layout_marginStart="16dp">
+                <TextView style="@style/Mk.Section" android:id="@+id/tv_full_name" android:text="Мастер" />
+                <Space android:layout_width="1dp" android:layout_height="8dp" />
+                <TextView style="@style/Mk.Section" android:id="@+id/tv_rating_avg" android:textColor="@color/mk_accent" />
+                <TextView style="@style/Mk.Caption" android:id="@+id/tv_rating_count" />
             </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <!-- Reviews list -->
-        <LinearLayout
-            android:id="@+id/ll_reviews"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginBottom="14dp" />
-
-        <!-- Profile fields card -->
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="14dp"
-            app:cardCornerRadius="24dp"
-            app:cardElevation="6dp"
-            app:cardBackgroundColor="#FFFFFF">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="20dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/label_city"
-                    android:textSize="11sp"
-                    android:textColor="@color/mk_ink_hint"
-                    android:fontFamily="@font/golos_text"
-                    android:letterSpacing="0.06"
-                    android:layout_marginBottom="8dp" />
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="52dp"
-                    android:background="@drawable/bg_input"
-                    android:layout_marginBottom="18dp">
-                    <EditText
-                        android:id="@+id/et_city"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@null"
-                        android:paddingHorizontal="16dp"
-                        android:textSize="14sp"
-                        android:textColor="@color/mk_ink"
-                        android:inputType="text"
-                        android:singleLine="true" />
-                </FrameLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/label_bio"
-                    android:textSize="11sp"
-                    android:textColor="@color/mk_ink_hint"
-                    android:fontFamily="@font/golos_text"
-                    android:letterSpacing="0.06"
-                    android:layout_marginBottom="8dp" />
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="96dp"
-                    android:background="@drawable/bg_input">
-                    <EditText
-                        android:id="@+id/et_bio"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@null"
-                        android:padding="16dp"
-                        android:textSize="14sp"
-                        android:textColor="@color/mk_ink"
-                        android:inputType="textMultiLine"
-                        android:gravity="top" />
-                </FrameLayout>
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <!-- Specializations card -->
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="14dp"
-            app:cardCornerRadius="24dp"
-            app:cardElevation="6dp"
-            app:cardBackgroundColor="#FFFFFF">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="20dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/label_specializations"
-                    android:textSize="11sp"
-                    android:textColor="@color/mk_ink_hint"
-                    android:fontFamily="@font/golos_text"
-                    android:letterSpacing="0.06"
-                    android:layout_marginBottom="12dp" />
-
-                <LinearLayout
-                    android:id="@+id/ll_specializations"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical" />
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <TextView
-            android:id="@+id/btn_save"
-            android:layout_width="match_parent"
-            android:layout_height="54dp"
-            android:background="@drawable/bg_mk_btn_primary"
-            android:text="@string/btn_save"
-            android:textColor="#FFFFFF"
-            android:textSize="15sp"
-            android:fontFamily="@font/golos_text"
-            android:gravity="center"
-            android:clickable="true"
-            android:focusable="true"
-            android:elevation="4dp" />
-
+        </LinearLayout>
+        <Space android:layout_width="1dp" android:layout_height="24dp" />
+        <LinearLayout style="@style/Mk.Card">
+            <TextView style="@style/Mk.Section" android:text="О вас" />
+            <Space android:layout_width="1dp" android:layout_height="16dp" />
+            <TextView style="@style/Mk.Caption" android:text="Город" />
+            <Space android:layout_width="1dp" android:layout_height="8dp" />
+            <EditText android:id="@+id/et_city" style="@style/Mk.Field" android:hint="Где вы работаете" android:inputType="textCapWords" android:singleLine="true" />
+            <Space android:layout_width="1dp" android:layout_height="16dp" />
+            <TextView style="@style/Mk.Caption" android:text="Опыт и подход к работе" />
+            <Space android:layout_width="1dp" android:layout_height="8dp" />
+            <EditText android:id="@+id/et_bio" style="@style/Mk.Field" android:hint="Расскажите, чем можете помочь" android:inputType="textCapSentences|textMultiLine" android:minLines="3" android:gravity="top" />
+        </LinearLayout>
+        <Space android:layout_width="1dp" android:layout_height="16dp" />
+        <LinearLayout style="@style/Mk.Card">
+            <TextView style="@style/Mk.Section" android:text="Ваши специализации" />
+            <Space android:layout_width="1dp" android:layout_height="6dp" />
+            <TextView style="@style/Mk.Caption" android:text="Выберите услуги, чтобы получать подходящие заказы." />
+            <Space android:layout_width="1dp" android:layout_height="12dp" />
+            <EditText android:id="@+id/et_specialization_search" style="@style/Mk.Field" android:hint="Найти услугу" android:singleLine="true" android:inputType="text" />
+            <Space android:layout_width="1dp" android:layout_height="8dp" />
+            <LinearLayout android:id="@+id/ll_specializations" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" />
+        </LinearLayout>
+        <Space android:layout_width="1dp" android:layout_height="16dp" />
+        <com.google.android.material.button.MaterialButton android:id="@+id/btn_save" style="@style/Mk.Button" android:text="Сохранить профиль" />
+        <Space android:layout_width="1dp" android:layout_height="28dp" />
+        <TextView style="@style/Mk.Section" android:text="Отзывы о вашей работе" />
+        <Space android:layout_width="1dp" android:layout_height="12dp" />
+        <LinearLayout android:id="@+id/ll_reviews" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" />
     </LinearLayout>
-
 </ScrollView>

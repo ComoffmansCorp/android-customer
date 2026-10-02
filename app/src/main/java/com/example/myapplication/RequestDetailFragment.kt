@@ -50,10 +50,11 @@ class RequestDetailFragment : Fragment() {
     }
 
     private fun loadRequest(id: Long) {
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             runCatching { ApiClient.api.getServiceRequest(id) }
                 .onSuccess { r -> request = r; bind(r) }
                 .onFailure {
+                    if (_b == null) return@onFailure
                     Toast.makeText(requireContext(), it.toUserMessage(), Toast.LENGTH_SHORT).show()
                 }
         }
@@ -62,6 +63,8 @@ class RequestDetailFragment : Fragment() {
     private fun bind(r: ServiceRequestResponse) {
         (activity as? MainActivity)?.setToolbarTitle(r.serviceName ?: "Заявка")
 
+        b.tvRequestMeta.text = "Заказ №${r.id}"
+        b.tvPrice.text = r.agreedPrice?.let { java.text.NumberFormat.getIntegerInstance(java.util.Locale.forLanguageTag("ru")).format(it) + " ₽ · согласовано" } ?: "Стоимость согласуется с заказчиком"
         b.tvServicePill.text = r.serviceName ?: "Услуга"
         b.tvAddress.text = r.addressText
         b.tvClient.text = "Клиент #${r.clientId}"
@@ -70,7 +73,7 @@ class RequestDetailFragment : Fragment() {
         applyStatus(r.status)
         updateButtons(r)
 
-        if (r.masterId != null) {
+        if (r.masterId == AuthManager.userId) {
             b.cardChat.visibility = View.VISIBLE
             b.btnSendMessage.setOnClickListener { sendMessage(r) }
             startChatPolling(r.id)
@@ -111,13 +114,16 @@ class RequestDetailFragment : Fragment() {
         messages.forEach { m ->
             val bubble = TextView(requireContext()).apply {
                 text = m.text
-                textSize = 13f
-                setPadding(28, 18, 28, 18)
+                textSize = 14f
+                val density = resources.displayMetrics.density
+                setPadding((14*density).toInt(), (11*density).toInt(), (14*density).toInt(), (11*density).toInt())
+                maxWidth = (resources.displayMetrics.widthPixels * .72f).toInt()
+                typeface = androidx.core.content.res.ResourcesCompat.getFont(requireContext(), R.font.onest)
                 val mine = m.senderId == myUserId
-                setBackgroundResource(if (mine) R.drawable.bg_mk_btn_primary else R.drawable.bg_input)
-                setTextColor(ContextCompat.getColor(requireContext(), if (mine) android.R.color.white else R.color.mk_ink))
+                setBackgroundResource(if (mine) R.drawable.bg_chat_mine else R.drawable.bg_chat_other)
+                setTextColor(ContextCompat.getColor(requireContext(), if (mine) R.color.mk_on_accent else R.color.mk_ink))
                 val lp = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-                lp.bottomMargin = 12
+                lp.bottomMargin = (10 * density).toInt()
                 lp.gravity = if (mine) android.view.Gravity.END else android.view.Gravity.START
                 layoutParams = lp
             }
@@ -128,13 +134,14 @@ class RequestDetailFragment : Fragment() {
     private fun sendMessage(r: ServiceRequestResponse) {
         val text = b.etChatMessage.text?.toString()?.trim().orEmpty()
         if (text.isEmpty()) return
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             runCatching { ApiClient.api.sendMessage(r.id, SendMessageRequest(text)) }
                 .onSuccess {
                     b.etChatMessage.setText("")
                     runCatching { ApiClient.api.getMessages(r.id) }.onSuccess { renderMessages(it) }
                 }
-                .onFailure { Toast.makeText(requireContext(), it.toUserMessage(), Toast.LENGTH_SHORT).show() }
+                .onFailure {
+                    if (_b == null) return@onFailure Toast.makeText(requireContext(), it.toUserMessage(), Toast.LENGTH_SHORT).show() }
         }
     }
 
@@ -149,7 +156,7 @@ class RequestDetailFragment : Fragment() {
             }
             "ASSIGNED" -> {
                 b.btnClaimWork.visibility = View.GONE
-                b.btnCompleteRequest.visibility = View.VISIBLE
+                b.btnCompleteRequest.visibility = if (r.masterId == AuthManager.userId) View.VISIBLE else View.GONE
                 b.btnCompleteRequest.isClickable = true
                 b.btnCompleteRequest.alpha = 1f
                 b.btnCompleteRequest.setOnClickListener { confirmComplete(r) }
@@ -193,12 +200,13 @@ class RequestDetailFragment : Fragment() {
     }
 
     private fun submitOffer(r: ServiceRequestResponse, price: Double, comment: String) {
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             runCatching { ApiClient.api.submitOffer(r.id, SubmitOfferRequest(price, comment)) }
                 .onSuccess {
                     Toast.makeText(requireContext(), "Отклик отправлен", Toast.LENGTH_SHORT).show()
                 }
                 .onFailure {
+                    if (_b == null) return@onFailure
                     Toast.makeText(requireContext(), it.toUserMessage(), Toast.LENGTH_LONG).show()
                 }
         }
@@ -214,7 +222,7 @@ class RequestDetailFragment : Fragment() {
     }
 
     private fun complete(r: ServiceRequestResponse) {
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             runCatching { ApiClient.api.completeRequest(r.id) }
                 .onSuccess { updated ->
                     request = updated
@@ -223,6 +231,7 @@ class RequestDetailFragment : Fragment() {
                     Toast.makeText(requireContext(), "Заявка завершена", Toast.LENGTH_SHORT).show()
                 }
                 .onFailure {
+                    if (_b == null) return@onFailure
                     Toast.makeText(requireContext(), it.toUserMessage(), Toast.LENGTH_LONG).show()
                 }
         }
@@ -237,12 +246,14 @@ class RequestDetailFragment : Fragment() {
             else          -> Triple(status, R.color.mk_status_open_bg, R.color.mk_status_open_fg)
         }
         b.tvStatus.text = text
-        b.tvStatus.setBackgroundColor(ContextCompat.getColor(requireContext(), bgRes))
+        b.tvStatus.background = android.graphics.drawable.GradientDrawable().apply { setColor(ContextCompat.getColor(requireContext(), bgRes)); cornerRadius = 8 * resources.displayMetrics.density }
         b.tvStatus.setTextColor(ContextCompat.getColor(requireContext(), fgRes))
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
+        lastRenderedMessageSignature = null
+        chatPollJob?.cancel()
         _b = null
     }
 }

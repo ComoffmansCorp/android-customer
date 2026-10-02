@@ -1,11 +1,2 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <style name="Base.Theme.MyApplication" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/mk_accent</item>
-        <item name="colorOnPrimary">@color/white</item>
-        <item name="colorSurface">@color/mk_bg</item>
-        <item name="colorOnSurface">@color/mk_ink</item>
-        <item name="android:windowBackground">@color/mk_bg</item>
-        <item name="android:statusBarColor">@color/mk_accent_press</item>
-        <item name="android:navigationBarColor">@color/mk_bg</item>
-    </style>
-</resources>
+<?xml version='1.0' encoding='utf-8'?>
+<resources />
